@@ -1,0 +1,33 @@
+@()
+
+@main("Login") {
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<div class="subtopbar">
+  Gerenciador de Matrículas
+</div>
+<div class="topbar">
+  <div class="logo">
+    GM
+  </div>
+</div>
+<div class="container">
+  <div class="subcontainer">
+    <div class="area_login">
+      <div id="inner_login" class="inner_login">
+        <div class="container">
+          <div class="subcontainer">
+            <h1>Login</h1>
+            <form method="POST" action="actions/login">
+              <input id="matricula_input" placeholder="Matrícula" type="text" name="login"></input>
+              <input placeholder="Senha" type="password" name="password"></input>
+              <br/>
+              <div id="warnings" class="warnings"></div>
+              <div class="alignright"><input type="submit" value="Entrar"></input></div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+}
