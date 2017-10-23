@@ -1,0 +1,52 @@
+\documentclass{article}
+\usepackage[portuguese]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage[top=2cm,bottom=2cm,left=2cm,right=2cm]{geometry}
+\usepackage{enumerate}
+\usepackage[T1]{fontenc}
+\usepackage[dvipsnames]{xcolor}
+\usepackage{color}
+\usepackage{longtable}
+\usepackage{amssymb}
+
+\newcommand{\pendente}{\textbf{...}}
+\newcommand{\concluido}{\checkmark}
+\newcommand{\atrasado}{\color{OrangeRed} $\times$}
+
+\newenvironment{tarefas}{\begin{longtable}{llr}}{\end{longtable}}
+
+\newcommand{\tarefa}[5]{
+  \multicolumn{3}{l}{\parbox{15cm}{\textbf{Tarefa} \emph{#1}\\ #2}}
+	\\\\\hline\textbf{Prazo e responsáveis:} & #3, #4  & #5\\\hline\\
+}
+
+\title{Planejamento}
+\date{}
+
+\begin{document}
+  \maketitle
+  \begin{tarefas}
+	  \tarefa{Configurar servidor}{
+	    Configurar o servidor para uso de todos os integrantes do grupo. Um servidor mariadb (\texttt{oluiz.com.br:3306}), um repositório no GitHub e o servidor que rodará o programa (\texttt{oluiz.com.br:9000}). Configurar o projeto usando \texttt{play framework}
+	  }{23 de Outubro}{Luiz Antônio}{\concluido}
+	  \tarefa{Construir página inicial do GM}{
+		  Criar um formulário de login do tipo POST com identificação do usuário e senha. Criar uma logomarca para o GM.\\
+		  \emph{Restrição}\\
+		  Deve ser usado CSS, HTML e JavaScript. Pode usar \textit{bootstrap}.
+	  }{27 de Outubro}{Ivan e Hélio}{\pendente}
+	  \tarefa{Construir páginas}{
+	    Construir as páginas: oferta (Campus $\rightarrow$ Instituto $\rightarrow$ Departamento $\rightarrow$ Lista de matérias), curso: (Campus $\rightarrow$ Instituto $\rightarrow$ Departamento $\rightarrow$ Lista de cursos), página do curso, matéria, grade horária, resultado, remoção de matrícula, trancamento, oferta baseada no fluxo, confirmação da lista de espera, trancamento geral, dados pessoais e histórico escolar.
+		  Tomando como base o MatriculaWeb. Caso deseje mudar a estrutura das páginas para algo mais conveniente sinta-se livre.\\
+		  \emph{Restrição}
+		  Deve ser usado CSS, HTML e JavaScript. Pode usar \textit{bootstrap}.\\
+		  \emph{Detalhes}
+		  Cada página deve ter \texttt{<input type=\textquotedbl text\textquotedbl></input>} caso sejam dados modificáveis, por exemplo: endereço residencial, telefone na página de dados pessoais e botões \texttt{<input type=\textquotedbl button\textquotedbl></input>} para formulários etc. Caso ache melhor, por questões de design, usar \texttt{<div>...</div>} sinta-se à vontade.
+	  }{27 de Outubro}{Ivan e Hélio}{\pendente}
+	  \tarefa{Definir tabelas}{
+	    Construir e definir as tabelas do banco de dados. 
+	  }{27 de Outubro}{Luiz Antônio e Vinícius}{\pendente}
+	  \tarefa{Definir case classes}{
+	    Definir e implementar as \texttt{case classes} a serem usadas no servidor scala.
+	  }{03 de Novembro}{Luiz Antônio e Vinícius}{\pendente}
+	\end{tarefas}
+\end{document}

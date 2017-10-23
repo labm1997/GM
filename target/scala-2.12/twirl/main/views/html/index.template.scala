@@ -26,9 +26,13 @@ object index extends _root_.play.twirl.api.BaseScalaTemplate[play.twirl.api.Html
 Seq[Any](format.raw/*1.4*/("""
 
 """),_display_(/*3.2*/main("Bem vindo(a) ao GM")/*3.28*/ {_display_(Seq[Any](format.raw/*3.30*/("""
-  """),format.raw/*4.3*/("""<h1>Bem vindo(a) ao GM</h1>
-  <h2>O Gerenciador de Matrículas</h2>
-""")))}),format.raw/*6.2*/("""
+  """),format.raw/*4.3*/("""<h1>GM - Gerenciador de Matrículas</h1>
+  Roteiro de evolução do projeto: 
+  <ul>
+    <li><a href="assets/doc/Roteiro_20171022.pdf">Roteiro_20171022.pdf</a></li>
+    <li><a href="assets/doc/Roteiro_20171022.tex">Roteiro_20171022.tex</a></li>
+  </ul>
+""")))}),format.raw/*10.2*/("""
 """))
       }
     }
@@ -45,11 +49,11 @@ Seq[Any](format.raw/*1.4*/("""
 
               /*
                   -- GENERATED --
-                  DATE: Sun Oct 22 22:46:06 BRST 2017
-                  SOURCE: /home/luiz/Documentos/TP1/Projeto Final/gm/app/views/index.scala.html
-                  HASH: 6abc5db437a915d0a5e0d043cd256f7c98651182
-                  MATRIX: 722->1|818->3|846->6|880->32|919->34|948->37|1045->105
-                  LINES: 21->1|26->1|28->3|28->3|28->3|29->4|31->6
+                  DATE: Sun Oct 22 23:13:29 BRST 2017
+                  SOURCE: /home/luiz/Documentos/TP1/Projeto Final/GM/app/views/index.scala.html
+                  HASH: fae6daef0760793b18538def58ff69c1333fbcfc
+                  MATRIX: 722->1|818->3|846->6|880->32|919->34|948->37|1229->288
+                  LINES: 21->1|26->1|28->3|28->3|28->3|29->4|35->10
                   -- GENERATED --
               */
           
