@@ -20,3 +20,17 @@ document.getElementById("matricula_input").addEventListener("change", function(e
   else if(d.match(/[0-9\/]/g).length != d.split("").length) mostrador.message("Caracteres inválidos")
   else mostrador.limpar()
 })
+
+/* Detecta o tamanho da tela */
+function screenSelect() {
+	var w = screen.width * (window.devicePixelRatio || 1);
+	var il = document.getElementById("inner_login");
+	
+	if (w > 1200) {
+	}
+	else {
+	  il.style.marginLeft = ((screen.width-il.offsetWidth-70)/2) + "px"
+	}
+}
+
+setInterval(screenSelect, 100);
