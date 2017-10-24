@@ -1,66 +1,73 @@
 @()
-
-@main("Login") {
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<div class="cronograma">
-  <div class="inner_cronograma">
-    <div class="bola concluida">
-      <div class="bolatext">Pré-matrícula</div>
-      <div class="container"><div class="subcontainer">20</div></div>
-    </div><br/>
-    <div class="line"></div><br/>
-    <div class="bola acompletar">
-      <div class="bolatext">Matrícula</div>
-      <div class="container"><div class="subcontainer">22</div></div>
-    </div><br/>
-    <div class="line"></div><br/>
-    <div class="bola acompletar">
-      <div class="bolatext">Processamento coletivo</div>
-      <div class="container"><div class="subcontainer">30</div></div>
-    </div><br/>
-    <div class="line"></div><br/>
-    <div class="bola acompletar">
-      <div class="bolatext">Ajuste</div>
-      <div class="container"><div class="subcontainer">01</div></div>
-    </div><br/>
-    <div class="line"></div><br/>
-    <div class="bola acompletar">
-      <div class="bolatext">Processamento coletivo</div>
-      <div class="container"><div class="subcontainer">02</div></div>
-    </div><br/>
-    <div class="line"></div><br/>
-    <div class="bola acompletar">
-      <div class="bolatext">Resultado final</div>
-      <div class="container"><div class="subcontainer">05</div></div>
-    </div><br/>
-  </div>
-</div>
-<div class="subtopbar">
-  Gerenciador de Matrículas
-</div>
-<div class="topbar">
-  <div class="logo">
-    GM
-  </div>
-</div>
-<div class="container">
-  <div class="subcontainer">
-    <div class="area_login">
-      <div id="inner_login" class="inner_login">
-        <div class="container">
-          <div class="subcontainer">
-            <h1>Login</h1>
-            <form method="POST" action="home">
-              <input id="matricula_input" placeholder="Matrícula" type="text" name="login"></input>
-              <input placeholder="Senha" type="password" name="password"></input>
-              <br/>
-              <div id="warnings" class="warnings"></div>
-              <div class="alignright"><input type="submit" value="Entrar"></input></div>
-            </form>
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" media="screen" href="@routes.Assets.versioned("stylesheets/main.css")">
+    <link rel="stylesheet" media="screen" href="@routes.Assets.versioned("stylesheets/login.css")">
+  </head>
+  <body>
+    <div class="cronograma" id="cronograma">
+      <div class="inner_cronograma">
+        <div class="bola concluida">
+          <div class="bolatext">Pré-matrícula</div>
+          <div class="container"><div class="subcontainer">20</div></div>
+        </div><br/>
+        <div class="line"></div><br/>
+        <div class="bola acompletar">
+          <div class="bolatext">Matrícula</div>
+          <div class="container"><div class="subcontainer">22</div></div>
+        </div><br/>
+        <div class="line"></div><br/>
+        <div class="bola acompletar">
+          <div class="bolatext">Processamento coletivo</div>
+          <div class="container"><div class="subcontainer">30</div></div>
+        </div><br/>
+        <div class="line"></div><br/>
+        <div class="bola acompletar">
+          <div class="bolatext">Ajuste</div>
+          <div class="container"><div class="subcontainer">01</div></div>
+        </div><br/>
+        <div class="line"></div><br/>
+        <div class="bola acompletar">
+          <div class="bolatext">Processamento coletivo</div>
+          <div class="container"><div class="subcontainer">02</div></div>
+        </div><br/>
+        <div class="line"></div><br/>
+        <div class="bola acompletar">
+          <div class="bolatext">Resultado final</div>
+          <div class="container"><div class="subcontainer">05</div></div>
+        </div><br/>
+      </div>
+    </div>
+    <div class="subtopbar">
+      Gerenciador de Matrículas
+    </div>
+    <div class="topbar">
+      <div class="logo">
+        GM
+      </div>
+    </div>
+    <div class="container">
+      <div class="subcontainer">
+        <div class="area_login">
+          <div id="inner_login" class="inner_login">
+            <div class="container">
+              <div class="subcontainer">
+                <h1>Login</h1>
+                <form method="POST" action="home">
+                  <input id="matricula_input" placeholder="Matrícula" type="text" name="login"></input>
+                  <input placeholder="Senha" type="password" name="password"></input>
+                  <br/>
+                  <div id="warnings" class="warnings"></div>
+                  <div class="alignright"><input type="submit" value="Entrar"></input></div>
+                </form>
+              </div>
+            </div>
           </div>
         </div>
       </div>
     </div>
-  </div>
-</div>
-}
+    <script src="@routes.Assets.versioned("javascripts/main.js")" crossorigin="anonymous"></script>
+    <script src="@routes.Assets.versioned("javascripts/login.js")" crossorigin="anonymous"></script>
+  </body>
+</html>

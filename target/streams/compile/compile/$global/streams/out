@@ -1,11 +1,11 @@
-[0m[[0m[33mwarn[0m] [0m[0m/home/luiz/Documentos/TP1/Projeto Final/GM/app/controllers/HomeController.scala:34:7: Adaptation of argument list by inserting () is deprecated: this is unlikely to be what you want.[0m
-[0m[[0m[33mwarn[0m] [0m[0m        signature: Status.apply[C](content: C)(implicit writeable: play.api.http.Writeable[C]): play.api.mvc.Result[0m
-[0m[[0m[33mwarn[0m] [0m[0m  given arguments: <none>[0m
-[0m[[0m[33mwarn[0m] [0m[0m after adaptation: Status((): Unit)[0m
-[0m[[0m[33mwarn[0m] [0m[0m    Ok().withNewSession[0m
-[0m[[0m[33mwarn[0m] [0m[0m      ^[0m
-[0m[[0m[31merror[0m] [0m[0m/home/luiz/Documentos/TP1/Projeto Final/GM/app/controllers/HomeController.scala:34:7: Cannot write an instance of Unit to HTTP response. Try to define a Writeable[Unit][0m
-[0m[[0m[31merror[0m] [0m[0m    Ok().withNewSession[0m
-[0m[[0m[31merror[0m] [0m[0m      ^[0m
-[0m[[0m[33mwarn[0m] [0m[0mone warning found[0m
-[0m[[0m[31merror[0m] [0m[0mone error found[0m
+[0m[[0m[31merror[0m] [0m[0m/home/luiz/Documentos/TP1/Projeto Final/GM/app/controllers/HomeController.scala:26:26: missing argument list for method apply in object login[0m
+[0m[[0m[31merror[0m] [0m[0mUnapplied methods are only converted to functions when a function type is expected.[0m
+[0m[[0m[31merror[0m] [0m[0mYou can make this conversion explicit by writing `apply _` or `apply()(_)` instead of `apply`.[0m
+[0m[[0m[31merror[0m] [0m[0m      Ok(views.html.login())[0m
+[0m[[0m[31merror[0m] [0m[0m                         ^[0m
+[0m[[0m[31merror[0m] [0m[0m/home/luiz/Documentos/TP1/Projeto Final/GM/app/controllers/HomeController.scala:34:24: missing argument list for method apply in object login[0m
+[0m[[0m[31merror[0m] [0m[0mUnapplied methods are only converted to functions when a function type is expected.[0m
+[0m[[0m[31merror[0m] [0m[0mYou can make this conversion explicit by writing `apply _` or `apply()(_)` instead of `apply`.[0m
+[0m[[0m[31merror[0m] [0m[0m    Ok(views.html.login()).withNewSession[0m
+[0m[[0m[31merror[0m] [0m[0m                       ^[0m
+[0m[[0m[31merror[0m] [0m[0mtwo errors found[0m
