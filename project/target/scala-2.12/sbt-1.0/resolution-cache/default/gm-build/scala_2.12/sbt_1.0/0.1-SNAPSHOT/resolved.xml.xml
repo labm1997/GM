@@ -4,7 +4,7 @@
 		module="gm-build"
 		revision="0.1-SNAPSHOT"
 		status="integration"
-		publication="20171022225844"
+		publication="20171024121332"
 		e:sbtVersion="1.0" e:scalaVersion="2.12"
 	>
 		<description>
@@ -34,6 +34,7 @@
 		<dependency org="org.scala-lang" name="scala-compiler" rev="2.12.3" conf="scala-tool->default,optional(default)"/>
 		<dependency org="org.scala-lang" name="scala-library" rev="2.12.3" conf="scala-tool->default,optional(default);provided->default(compile)"/>
 		<dependency org="org.scala-sbt" name="sbt" rev="1.0.2" conf="provided->default(compile)"/>
+		<dependency org="com.eed3si9n" name="sbt-assembly" rev="0.14.5" conf="compile->default(compile)" e:sbtVersion="1.0" e:scalaVersion="2.12"/>
 		<dependency org="com.typesafe.play" name="sbt-plugin" rev="2.6.6" conf="compile->default(compile)" e:sbtVersion="1.0" e:scalaVersion="2.12"/>
 	</dependencies>
 </ivy-module>

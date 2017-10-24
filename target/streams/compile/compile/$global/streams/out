@@ -1,4 +1,11 @@
-[0m[[0m[31merror[0m] [0m[0m/home/luiz/Documentos/TP1/Projeto Final/GM/app/views/login.scala.html:3:8: no arguments allowed for nullary method apply: ()play.twirl.api.HtmlFormat.Appendable in object login[0m
-[0m[[0m[31merror[0m] [0m[0m@login("Login") {[0m
-[0m[[0m[31merror[0m] [0m[0m       ^[0m
+[0m[[0m[33mwarn[0m] [0m[0m/home/luiz/Documentos/TP1/Projeto Final/GM/app/controllers/HomeController.scala:34:7: Adaptation of argument list by inserting () is deprecated: this is unlikely to be what you want.[0m
+[0m[[0m[33mwarn[0m] [0m[0m        signature: Status.apply[C](content: C)(implicit writeable: play.api.http.Writeable[C]): play.api.mvc.Result[0m
+[0m[[0m[33mwarn[0m] [0m[0m  given arguments: <none>[0m
+[0m[[0m[33mwarn[0m] [0m[0m after adaptation: Status((): Unit)[0m
+[0m[[0m[33mwarn[0m] [0m[0m    Ok().withNewSession[0m
+[0m[[0m[33mwarn[0m] [0m[0m      ^[0m
+[0m[[0m[31merror[0m] [0m[0m/home/luiz/Documentos/TP1/Projeto Final/GM/app/controllers/HomeController.scala:34:7: Cannot write an instance of Unit to HTTP response. Try to define a Writeable[Unit][0m
+[0m[[0m[31merror[0m] [0m[0m    Ok().withNewSession[0m
+[0m[[0m[31merror[0m] [0m[0m      ^[0m
+[0m[[0m[33mwarn[0m] [0m[0mone warning found[0m
 [0m[[0m[31merror[0m] [0m[0mone error found[0m

@@ -1,7 +1,7 @@
 
 // @GENERATOR:play-routes-compiler
 // @SOURCE:/home/luiz/Documentos/TP1/Projeto Final/GM/conf/routes
-// @DATE:Mon Oct 23 15:13:07 BRST 2017
+// @DATE:Mon Oct 23 20:08:14 BRST 2017
 
 import play.api.routing.JavaScriptReverseRoute
 
@@ -18,6 +18,36 @@ package controllers.javascript {
       if (_prefix.endsWith("/")) "" else "/"
     }
 
+  
+    // @LINE:9
+    def sessionStart: JavaScriptReverseRoute = JavaScriptReverseRoute(
+      "controllers.HomeController.sessionStart",
+      """
+        function() {
+          return _wA({method:"POST", url:"""" + _prefix + { _defaultPrefix } + """" + "home"})
+        }
+      """
+    )
+  
+    // @LINE:11
+    def sessionEnd: JavaScriptReverseRoute = JavaScriptReverseRoute(
+      "controllers.HomeController.sessionEnd",
+      """
+        function() {
+          return _wA({method:"GET", url:"""" + _prefix + { _defaultPrefix } + """" + "logout"})
+        }
+      """
+    )
+  
+    // @LINE:10
+    def home: JavaScriptReverseRoute = JavaScriptReverseRoute(
+      "controllers.HomeController.home",
+      """
+        function() {
+          return _wA({method:"GET", url:"""" + _prefix + { _defaultPrefix } + """" + "home"})
+        }
+      """
+    )
   
     // @LINE:7
     def index: JavaScriptReverseRoute = JavaScriptReverseRoute(
@@ -41,7 +71,7 @@ package controllers.javascript {
   
   }
 
-  // @LINE:11
+  // @LINE:14
   class ReverseAssets(_prefix: => String) {
 
     def _defaultPrefix: String = {
@@ -49,7 +79,7 @@ package controllers.javascript {
     }
 
   
-    // @LINE:11
+    // @LINE:14
     def versioned: JavaScriptReverseRoute = JavaScriptReverseRoute(
       "controllers.Assets.versioned",
       """

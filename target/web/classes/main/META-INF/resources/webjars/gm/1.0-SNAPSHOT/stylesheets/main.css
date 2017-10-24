@@ -23,6 +23,7 @@ html, body {
   padding: 0;
   height: 100%;
   display: block;
+  background-image: url('../images/memphis-colorful.png');
 }
 
 div.alignright {text-align: right;}
@@ -116,21 +117,26 @@ div.area_login {
   background-color: #545495;
   width: 100%;
   height: 300px;
+  text-align: center;
 }
 
 div.area_login div.inner_login {
-  width: 230px;
+  width: 700px;
   position: relative;
   display: inline-block;
   text-align: justify;
   height: 100%;
   color: #fff;
   margin-top: -10px;
-  margin-left: 30px;
   padding: 10px 20px 10px 20px;
   background: #2889c6;
   box-shadow: 3px 3px 10px 0px rgba(0,0,0,0.5);
+  text-align: center;
 }
+
+div.inner_login h1 {font-size: 50px;}
+
+div.inner_login form {width: 256px; display: inline-block;}
 
 div.area_login div.inner_login div.warnings {
   color: #fff;

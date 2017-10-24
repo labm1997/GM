@@ -10,7 +10,6 @@ import play.api.mvc._
  */
 @Singleton
 class HomeController @Inject()(cc: ControllerComponents) extends AbstractController(cc) {
-
   /**
    * Create an Action to render an HTML page.
    *
@@ -22,6 +21,21 @@ class HomeController @Inject()(cc: ControllerComponents) extends AbstractControl
     Ok(views.html.index())
   }
   def login() = Action { implicit request: Request[AnyContent] =>
-    Ok(views.html.login())
+    /* Verifica se já há sessão */
+    request.session.get("connected").map { user => Redirect("home") }.getOrElse {
+      Ok(views.html.login())
+    }
+  }
+  def sessionStart() = Action { implicit request: Request[AnyContent] =>
+    var user = request.body.asFormUrlEncoded.get("login")(0)
+    Ok(views.html.home(user)).withSession("connected" -> user)
+  }
+  def sessionEnd() = Action { implicit request: Request[AnyContent] =>
+    Ok(views.html.login()).withNewSession
+  }
+  def home() = Action { implicit request: Request[AnyContent] =>
+    request.session.get("connected").map { user => Ok(views.html.home(user)) }.getOrElse {
+      Unauthorized("Iiiiish")
+    }
   }
 }
