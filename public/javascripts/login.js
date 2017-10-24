@@ -1,11 +1,19 @@
 /* Mostrador de caixa de erro */
 var mostrador = {
-  doms: {warnings: document.getElementById("warnings"), loginbox: document.getElementById("inner_login")},
+  doms: {
+    warnings: document.getElementById("warnings"), 
+    loginbox: document.getElementById("inner_login"),
+    button: document.getElementById("loginbutton")
+   },
   message: function(m){
     if(typeof m === "string") mostrador.doms.warnings.innerText = m
+    mostrador.doms.button.disabled = true
     mostrador.movimentar()
   },
-  limpar: function(){mostrador.doms.warnings.innerText = ""},
+  limpar: function(){
+    mostrador.doms.warnings.innerText = ""
+    mostrador.doms.button.disabled = false
+  },
   movimentar: function(){
     mostrador.doms.loginbox.style.animation = "error 0.25s ease"
     setTimeout(function(){mostrador.doms.loginbox.style.animation = ""}, 250)
