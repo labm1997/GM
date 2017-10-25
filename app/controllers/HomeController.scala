@@ -3,13 +3,14 @@ package controllers
 import javax.inject._
 import play.api._
 import play.api.mvc._
+import models._
 
 /**
  * This controller creates an `Action` to handle HTTP requests to the
  * application's home page.
  */
 @Singleton
-class HomeController @Inject()(cc: ControllerComponents) extends AbstractController(cc) {
+class HomeController @Inject()(dao: LoginDAO, cc: ControllerComponents) extends AbstractController(cc) {
   /**
    * Create an Action to render an HTML page.
    *
@@ -27,7 +28,7 @@ class HomeController @Inject()(cc: ControllerComponents) extends AbstractControl
     }
   }
   def sessionStart() = Action { implicit request: Request[AnyContent] =>
-    var user = request.body.asFormUrlEncoded.get("login")(0)
+    var user = request.body.asFormUrlEncoded.get("user")(0)
     Ok(views.html.home(user)).withSession("connected" -> user)
   }
   def sessionEnd() = Action { implicit request: Request[AnyContent] =>
@@ -37,5 +38,8 @@ class HomeController @Inject()(cc: ControllerComponents) extends AbstractControl
     request.session.get("connected").map { user => Ok(views.html.home(user)) }.getOrElse {
       Unauthorized("Iiiiish")
     }
+  }
+  def teste() = Action { implicit request: Request[AnyContent] =>
+    Ok(dao.verificarCredenciais("teste","teste").toString)
   }
 }
