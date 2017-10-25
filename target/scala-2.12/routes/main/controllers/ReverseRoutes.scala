@@ -1,7 +1,7 @@
 
 // @GENERATOR:play-routes-compiler
 // @SOURCE:/home/luiz/Documentos/TP1/Projeto Final/GM/conf/routes
-// @DATE:Mon Oct 23 20:08:14 BRST 2017
+// @DATE:Wed Oct 25 12:32:45 BRST 2017
 
 import play.api.mvc.Call
 

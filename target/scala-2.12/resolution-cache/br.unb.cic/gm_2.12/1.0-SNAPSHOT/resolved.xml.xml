@@ -4,7 +4,7 @@
 		module="gm_2.12"
 		revision="1.0-SNAPSHOT"
 		status="integration"
-		publication="20171022225856"
+		publication="20171025121615"
 	>
 		<description>
 		GM
@@ -51,6 +51,7 @@
 		<dependency org="com.typesafe.play" name="play-guice_2.12" rev="2.6.6" conf="compile->default(compile)"/>
 		<dependency org="org.scalatestplus.play" name="scalatestplus-play_2.12" rev="3.1.2" conf="test->default(compile)"/>
 		<dependency org="com.typesafe.play" name="play-jdbc_2.12" rev="2.6.6" conf="compile->default(compile)"/>
+		<dependency org="com.typesafe.play" name="anorm_2.12" rev="2.5.3" conf="compile->default(compile)"/>
 		<dependency org="org.mariadb.jdbc" name="mariadb-java-client" rev="1.4.5" conf="compile->default(compile)"/>
 	</dependencies>
 </ivy-module>
