@@ -1,5 +1,5 @@
 [0m[[0m[0mdebug[0m] [0m[0mCopy resource mappings: [0m
-[0m[[0m[0mdebug[0m] [0m[0m	(/home/vinicius/Documentos/tp1/GM/conf/logback.xml,/home/vinicius/Documentos/tp1/GM/target/scala-2.12/classes/logback.xml)[0m
-[0m[[0m[0mdebug[0m] [0m[0m	(/home/vinicius/Documentos/tp1/GM/conf/routes,/home/vinicius/Documentos/tp1/GM/target/scala-2.12/classes/routes)[0m
-[0m[[0m[0mdebug[0m] [0m[0m	(/home/vinicius/Documentos/tp1/GM/conf/application.conf,/home/vinicius/Documentos/tp1/GM/target/scala-2.12/classes/application.conf)[0m
-[0m[[0m[0mdebug[0m] [0m[0m	(/home/vinicius/Documentos/tp1/GM/conf/messages,/home/vinicius/Documentos/tp1/GM/target/scala-2.12/classes/messages)[0m
+[0m[[0m[0mdebug[0m] [0m[0m	(/home/luiz/Documentos/TP1/Projeto Final/GM/conf/messages,/home/luiz/Documentos/TP1/Projeto Final/GM/target/scala-2.12/classes/messages)[0m
+[0m[[0m[0mdebug[0m] [0m[0m	(/home/luiz/Documentos/TP1/Projeto Final/GM/conf/application.conf,/home/luiz/Documentos/TP1/Projeto Final/GM/target/scala-2.12/classes/application.conf)[0m
+[0m[[0m[0mdebug[0m] [0m[0m	(/home/luiz/Documentos/TP1/Projeto Final/GM/conf/logback.xml,/home/luiz/Documentos/TP1/Projeto Final/GM/target/scala-2.12/classes/logback.xml)[0m
+[0m[[0m[0mdebug[0m] [0m[0m	(/home/luiz/Documentos/TP1/Projeto Final/GM/conf/routes,/home/luiz/Documentos/TP1/Projeto Final/GM/target/scala-2.12/classes/routes)[0m

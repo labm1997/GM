@@ -4,6 +4,8 @@ import javax.inject._
 import play.api._
 import play.api.mvc._
 import models._
+import java.security.MessageDigest
+
 
 /**
  * This controller creates an `Action` to handle HTTP requests to the
@@ -11,6 +13,7 @@ import models._
  */
 @Singleton
 class HomeController @Inject()(dao: LoginDAO, cc: ControllerComponents) extends AbstractController(cc) {
+def md5Hash(text: String) : String = java.security.MessageDigest.getInstance("MD5").digest(text.getBytes()).map(0xFF & _).map { "%02x".format(_) }.foldLeft(""){_ + _}
   /**
    * Create an Action to render an HTML page.
    *
@@ -29,7 +32,10 @@ class HomeController @Inject()(dao: LoginDAO, cc: ControllerComponents) extends 
   }
   def sessionStart() = Action { implicit request: Request[AnyContent] =>
     var user = request.body.asFormUrlEncoded.get("user")(0)
-    Ok(views.html.home(user)).withSession("connected" -> user)
+    var password = md5Hash(request.body.asFormUrlEncoded.get("password")(0))
+    if(dao.verificarCredenciais(user, password).length == 1)
+      Ok(views.html.home(user)).withSession("connected" -> user)
+    else Unauthorized("NÃO DEU NÃO")
   }
   def sessionEnd() = Action { implicit request: Request[AnyContent] =>
     Ok(views.html.login()).withNewSession
@@ -38,8 +44,5 @@ class HomeController @Inject()(dao: LoginDAO, cc: ControllerComponents) extends 
     request.session.get("connected").map { user => Ok(views.html.home(user)) }.getOrElse {
       Unauthorized("Iiiiish")
     }
-  }
-  def teste() = Action { implicit request: Request[AnyContent] =>
-    Ok(dao.verificarCredenciais("teste","teste").toString)
   }
 }

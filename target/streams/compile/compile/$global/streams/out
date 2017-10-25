@@ -1,6 +1,4 @@
-[0m[[0m[31merror[0m] [0m[0m/home/vinicius/Documentos/tp1/GM/app/models/login.scala:24:16: type mismatch;[0m
-[0m[[0m[31merror[0m] [0m[0m found   : anorm.ResultSetParser[List[models.Login]][0m
-[0m[[0m[31merror[0m] [0m[0m required: anorm.ResultSetParser[models.Login][0m
-[0m[[0m[31merror[0m] [0m[0m    .as(parser.*)[0m
-[0m[[0m[31merror[0m] [0m[0m               ^[0m
+[0m[[0m[31merror[0m] [0m[0m/home/luiz/Documentos/TP1/Projeto Final/GM/app/controllers/HomeController.scala:36:7: Cannot write an instance of List[models.Login] to HTTP response. Try to define a Writeable[List[models.Login]][0m
+[0m[[0m[31merror[0m] [0m[0m    Ok(dao.verificarCredenciais(user,password))[0m
+[0m[[0m[31merror[0m] [0m[0m      ^[0m
 [0m[[0m[31merror[0m] [0m[0mone error found[0m
