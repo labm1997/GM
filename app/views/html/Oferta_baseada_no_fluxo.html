@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+
+<html lang="pt">
+
+<head>
+
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+  	<title>GM - Oferta baseada no fluxo</title> <!-- insira o titulo da página aki-->
+
+  <!--CSS-->
+	<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+	<link href="https://fonts.googleapis.com/css?family=Libre+Baskerville" rel="stylesheet"> 
+
+	<link rel="stylesheet" type="text/css" href="../../../public/stylesheets/css/Arte.css"> <!-- insere o nome da página de css aki-->
+
+	<!--jQuery-->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+
+
+	<!--JavaScript-->
+	<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+</head>
+
+<body>
+	<div class = "container-fluid">
+		<h2> Nome do aluno </h2>
+		<h4> Número da matrícula </h4>
+
+		<div class = "table-responsive">
+			<table class="table table-bordered celula">
+				<tbody>
+					<!-- uma matéria -->
+					<tr>
+						<td class = "col-lg-3 col-md-3 col-sm-3 col-xs-3">ID da matéria </td>
+						<td class = "col-lg-4 col-md-4 col-sm-4 col-xs-4">Nome da matéria </td>
+						<td class = "col-lg-3 col-md-3 col-sm-3 col-xs-3">Turma </td>
+						<td class = "col-lg-1 col-md-1 col-sm-1 col-xs-1"><input type="radio" name="materia n" value="sim">Sim</td><!-- mudar o valor de "n" no campo name de acordo com as matérias que forem dadas -->
+						<td class = "col-lg-1 col-md-1 col-sm-1 col-xs-1"><input type="radio" name="materia n" value="nao">Não</td><!-- mudar o valor de "n" no campo name de acordo com as matérias que forem dadas -->
+					</tr>
+					<!-- inserir mais para cada matéria -->
+				</tbody>
+			</table>
+		</div>
+	</div>
+	<div class = "row">
+			<div class = "col-lg-5 col-md-5 col-sm-4 col-xs-4"></div>
+			<div class = "col-lg-2 col-md-2 col-sm-4 col-xs-4">
+				<input class = "botao" type="submit" value="Enviar"> <!-- Botão único que deve processar a lista de oferta de acordo com as marcações do usuário -->
+			</div>
+			<div class = "col-lg-5 col-md-5 col-sm-4 col-xs-4"></div>
+		</div>
+	</div>
+	
+</body>

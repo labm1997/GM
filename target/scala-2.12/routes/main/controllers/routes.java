@@ -1,7 +1,7 @@
 
 // @GENERATOR:play-routes-compiler
 // @SOURCE:/home/luiz/Documentos/TP1/Projeto Final/GM/conf/routes
-// @DATE:Wed Oct 25 12:32:45 BRST 2017
+// @DATE:Thu Nov 02 15:05:05 BRST 2017
 
 package controllers;
 

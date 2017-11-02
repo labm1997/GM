@@ -1,0 +1,36 @@
+div.perfil {
+  color: #fff;
+  background: #163677;
+  height: 100px;
+  padding: 15px 15px 0px 15px;
+}
+
+div.perfil div.foto {
+  width: 60px;
+  height: 60px;
+  border-radius: 60px;
+  border: 2px solid #fff;
+  margin-bottom: 5px;
+}
+
+div#loadablepage {
+  background: #fff;
+  display: inline-block;
+  padding: 10px;
+  box-shadow: 0px 0px 3px 0px rgba(0,0,0,0.2);
+}
+
+table {border-collapse: collapse; }
+
+table th {
+  padding: 5px;
+  border-bottom: 1px solid #000;
+}
+
+table td[border="true"], table th[border="true"] {
+  border-right: 1px solid #000;
+}
+
+table td {
+  padding: 5px
+}

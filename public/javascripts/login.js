@@ -7,7 +7,10 @@ var mostrador = {
    },
   message: function(m){
     if(typeof m === "string") mostrador.doms.warnings.innerText = m
-    mostrador.doms.button.disabled = true
+  },
+  errormessage: function(m,disable){
+    mostrador.message(m)
+    if(disable) mostrador.doms.button.disabled = true
     mostrador.movimentar()
   },
   limpar: function(){
@@ -23,9 +26,9 @@ var mostrador = {
 /* Verifica o formato da matrícula */
 document.getElementById("matricula_input").addEventListener("change", function(e){
   var d = e.target.value
-  if(d.split("")[2] != "/") mostrador.message("Formato inválido")
-  else if(d.length != 10) mostrador.message("Tamanho inválido")
-  else if(d.match(/[0-9\/]/g).length != d.split("").length) mostrador.message("Caracteres inválidos")
+  if(d.split("")[2] != "/") mostrador.errormessage("Formato inválido", true)
+  else if(d.length != 10) mostrador.errormessage("Tamanho inválido", true)
+  else if(d.match(/[0-9\/]/g).length != d.split("").length) mostrador.errormessage("Caracteres inválidos", true)
   else mostrador.limpar()
 })
 
@@ -46,3 +49,19 @@ function screenSelect() {
 }
 
 setInterval(screenSelect, 100);
+
+/* Faz submit do form */
+document.getElementById("loginbutton").addEventListener("click", function(e){
+  e.preventDefault();
+  q.post("home", q.toFormData(e.target.form), new q.actions({
+    done: function(){
+      window.location = "home"
+    },
+    fail: function(){
+      mostrador.errormessage("Informação errada", false);
+    },
+    wait: function(){
+      mostrador.message("Verificando");
+    }
+  }))
+});
