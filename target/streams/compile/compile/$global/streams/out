@@ -1,6 +1,4 @@
-[0m[[0m[31merror[0m] [0m[0m/home/luiz/Documentos/TP1/Projeto Final/GM/app/controllers/HomeController.scala:65:65: type mismatch;[0m
-[0m[[0m[31merror[0m] [0m[0m found   : Unit[0m
-[0m[[0m[31merror[0m] [0m[0m required: play.api.mvc.Result[0m
-[0m[[0m[31merror[0m] [0m[0m  def cursos() = Action { implicit request: Request[AnyContent] =>[0m
-[0m[[0m[31merror[0m] [0m[0m                                                                ^[0m
+[0m[[0m[31merror[0m] [0m[0m/home/luiz/Documentos/TP1/Projeto Final/GM/app/views/cursos.scala.html:12:15: value modalidade is not a member of models.cursos[0m
+[0m[[0m[31merror[0m] [0m[0m			<td>@curso.modalidade</td>[0m
+[0m[[0m[31merror[0m] [0m[0m			           ^[0m
 [0m[[0m[31merror[0m] [0m[0mone error found[0m

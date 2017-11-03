@@ -7,7 +7,7 @@
 		revision="1.0-SNAPSHOT"
 		conf="compile"
 		confs="compile, runtime, test, provided, optional, universal, universal-docs, universal-src, windows, docker, linux, rpm, debian, compile-internal, runtime-internal, test-internal, plugin, pom, scala-tool, docs"
-		date="20171025204429"/>
+		date="20171102171347"/>
 	<dependencies>
 		<module organisation="org.mariadb.jdbc" name="mariadb-java-client">
 			<revision name="1.4.5" status="release" pubdate="20160518124926" resolver="sbt-chain" artresolver="sbt-chain" homepage="https://mariadb.com/kb/en/mariadb/about-mariadb-connector-j/" downloaded="false" searched="false" default="false" conf="default, compile, runtime, default(compile), master" position="61">

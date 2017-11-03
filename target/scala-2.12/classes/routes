@@ -13,6 +13,8 @@ GET     /dados/dados_pessoais       controllers.HomeController.dadosPessoais
 GET     /dados/grade_horaria        controllers.HomeController.gradeHoraria
 GET     /dados/historico_escolar    controllers.HomeController.historicoEscolar
 GET     /dados/cursos               controllers.HomeController.cursos
+GET     /dados/oferta_departamento  controllers.HomeController.oferta
+GET     /dados/resultado  controllers.HomeController.resultado
 
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file               controllers.Assets.versioned(path="/public", file: Asset)
