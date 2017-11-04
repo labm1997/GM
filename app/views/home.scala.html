@@ -1,6 +1,46 @@
 @(name: String)
-
-@main("Home") {
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-Olá @name <a href="logout">Sair</a>
-}
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" media="screen" href="@routes.Assets.versioned("stylesheets/main.css")">
+    <link rel="stylesheet" media="screen" href="@routes.Assets.versioned("stylesheets/home.css")">
+    <title>Home</title>
+  </head>
+  <body>
+    <div class="topbar topbarleft">
+      <div class="logo logoleft">
+        GM
+      </div>
+      <a class="toplogout" href="logout">Sair</a>
+    </div>
+    <div class="pagestructure">
+      <div class="leftbar">
+        <div class="perfil">
+          <div class="foto"></div>
+          Olá @name
+        </div>
+        <div class="option" href="dados/dados_pessoais">Dados pessoais</div>
+        <div class="option" href="dados/grade_horaria">Grade Horária</div>
+        <div class="option" href="dados/historico_escolar">Histórico escolar</div>
+        <div class="vspace"></div>
+        <div class="option" href="dados/cursos">Cursos</div>
+        <div class="option" href="dados/oferta_departamento">Oferta</div>
+        <div class="vspace"></div>
+        <div class="option">Matrícula</div>
+        <div class="option">Oferta Individual</div>
+        <div class="option">Confirmar lista</div>
+        <div class="option" href="dados/resultado">Resultado</div>
+        <div class="option">Retirar matrícula</div>
+        <div class="option">Trancar disciplina</div>
+        <div class="option">Trancamento geral</div>
+      </div>
+      <div class="content">
+        <center>
+          <div id="loadablepage"></div>
+        </center>
+      </div>
+    </div>
+    <script src="@routes.Assets.versioned("javascripts/main.js")" crossorigin="anonymous"></script>
+    <script src="@routes.Assets.versioned("javascripts/home.js")" crossorigin="anonymous"></script>
+  </body>
+</html>

@@ -1,0 +1,17 @@
+@(departs: List[departamentos])
+<table>
+	<tbody>
+		<tr>
+			<th>Código</th>
+			<th>Sigla</th>
+			<th>Nome</th>
+		</tr>
+		@for(departamento <- departs){
+		<tr>
+			<td>@departamento.ID</td>
+			<td>@departamento.sigla</td>
+			<td><a href="">@departamento.nome<a></td>
+		</tr>
+		}
+	</tbody>
+</table>

@@ -1,0 +1,19 @@
+@(cursos: List[cursos])
+<table>
+	<tbody>
+		<tr>
+			<th>Modalidade</th>
+			<th>Código</th>
+			<th>Nome</th>
+			<th>Turno</th>
+		</tr>
+		@for(curso <- cursos) {
+		<tr>
+			<td>@curso.modalidade</td>
+			<td>@curso.ID</td>
+			<td><a href="">@curso.nome<a></td>
+			<td>@curso.turno</td>
+		</tr>
+		}
+	</tbody>
+</table>

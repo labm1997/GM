@@ -4,8 +4,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" media="screen" href="@routes.Assets.versioned("stylesheets/main.css")">
     <link rel="stylesheet" media="screen" href="@routes.Assets.versioned("stylesheets/login.css")">
+    <title>Login</title>
   </head>
   <body>
+    <div class="topbar">
+      <div class="logo">
+        GM
+      </div>
+    </div>
+    <div class="subtopbar">
+      Gerenciador de Matrículas
+    </div>
     <div class="cronograma" id="cronograma">
       <div class="inner_cronograma">
         <div class="bola concluida">
@@ -39,28 +48,33 @@
         </div><br/>
       </div>
     </div>
-    <div class="subtopbar">
-      Gerenciador de Matrículas
-    </div>
-    <div class="topbar">
-      <div class="logo">
-        GM
+    <div class="pagestructure">
+    
+      <div class="leftbar">
+        <div class="vspace"></div>
+        <div class="vspace"></div>
+        <div class="vspace"></div>
+        <div class="option">Curso</div>
+        <div class="option">Oferta</div>
       </div>
-    </div>
-    <div class="container">
-      <div class="subcontainer">
-        <div class="area_login">
-          <div id="inner_login" class="inner_login">
-            <div class="container">
-              <div class="subcontainer">
-                <h1>Login</h1>
-                <form method="POST" action="home">
-                  <input id="matricula_input" placeholder="Matrícula" type="text" name="user"></input>
-                  <input placeholder="Senha" type="password" name="password"></input>
-                  <br/>
-                  <div id="warnings" class="warnings"></div>
-                  <div class="alignright"><input id="loginbutton" type="submit" value="Entrar" disabled></input></div>
-                </form>
+      
+      <div class="content">
+        <div class="container">
+          <div class="subcontainer">
+            <div class="area_login">
+              <div id="inner_login" class="inner_login">
+                <div class="container">
+                  <div class="subcontainer">
+                    <h1>Login</h1>
+                    <form method="POST" action="home">
+                      <input id="matricula_input" placeholder="Matrícula" type="text" name="user"></input>
+                      <input placeholder="Senha" type="password" name="password"></input>
+                      <br/>
+                      <div id="warnings" class="warnings"></div>
+                      <div class="alignright"><input id="loginbutton" type="submit" value="Entrar" disabled></input></div>
+                    </form>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
