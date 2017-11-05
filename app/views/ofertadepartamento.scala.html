@@ -1,4 +1,4 @@
-@(departs: List[departamentos])
+@(departamentos: List[Departamento])
 <table>
 	<tbody>
 		<tr>
@@ -6,11 +6,11 @@
 			<th>Sigla</th>
 			<th>Nome</th>
 		</tr>
-		@for(departamento <- departs){
+		@for(departamento <- departamentos){
 		<tr>
 			<td>@departamento.ID</td>
 			<td>@departamento.sigla</td>
-			<td><a href="">@departamento.nome<a></td>
+			<td><a class="listener" href="dados/materias_departamento?id=@departamento.ID">@departamento.nome</a></td>
 		</tr>
 		}
 	</tbody>

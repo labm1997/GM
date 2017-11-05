@@ -1,4 +1,4 @@
-@(name: String)
+@(info: dadosPessoais)
 <html>
   <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -17,22 +17,30 @@
       <div class="leftbar">
         <div class="perfil">
           <div class="foto"></div>
-          Olá @name
+          Olá @info.matricula
         </div>
-        <div class="option" href="dados/dados_pessoais">Dados pessoais</div>
-        <div class="option" href="dados/grade_horaria">Grade Horária</div>
-        <div class="option" href="dados/historico_escolar">Histórico escolar</div>
+        <div class="option listener" href="dados/dados_pessoais">Dados pessoais</div>
+        <div class="option listener" href="dados/grade_horaria">Grade Horária</div>
+        <div class="option listener" href="dados/historico_escolar">Histórico escolar</div>
         <div class="vspace"></div>
-        <div class="option" href="dados/cursos">Cursos</div>
-        <div class="option" href="dados/oferta_departamento">Oferta</div>
+        <div class="option listener" href="dados/cursos">Cursos</div>
+        <div class="option listener" href="dados/oferta_departamento">Oferta</div>
         <div class="vspace"></div>
-        <div class="option">Matrícula</div>
-        <div class="option">Oferta Individual</div>
-        <div class="option">Confirmar lista</div>
-        <div class="option" href="dados/resultado">Resultado</div>
-        <div class="option">Retirar matrícula</div>
-        <div class="option">Trancar disciplina</div>
-        <div class="option">Trancamento geral</div>
+        <div class="option listener">Matrícula</div>
+        <div class="option listener">Oferta Individual</div>
+        <div class="option listener">Confirmar lista</div>
+        <div class="option listener" href="dados/resultado">Resultado</div>
+        <div class="option listener">Retirar matrícula</div>
+        <div class="option listener">Trancar disciplina</div>
+        <div class="option listener">Trancamento geral</div>
+	<div class="vspace"></div>
+	@{info.typed match{ case
+		Some(tipo) => 
+		if(tipo == "coordenador"){
+		<div class="option">Coisas do coordenador</div>
+		}
+		case None =>
+	}}
       </div>
       <div class="content">
         <center>

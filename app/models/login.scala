@@ -12,6 +12,7 @@ import play.api.db.Database
 import javax.inject.Singleton
 
 case class Login(user: String, password: String)
+case class Usuario()
 
 /**
  * Um DAO para a classe de entidade Login. 

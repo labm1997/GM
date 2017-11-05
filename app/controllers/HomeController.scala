@@ -19,6 +19,8 @@ class HomeController @Inject()(
   dadospessoaisdao: dadosPessoaisDAO, 
   cursosdao: cursosDAO,
   departamentosdao: departamentosDAO,
+  materiasdao: materiasDAO,
+  turmasDAO : turmasDAO,
   cc: ControllerComponents) 
   extends AbstractController(cc) {
   
@@ -45,8 +47,12 @@ class HomeController @Inject()(
         BadRequest("Há algum erro no formulário")
       },
       login => {
-        if(logindao.verificarCredenciais(login.user, md5Hash(login.password)).length == 1)
-        Ok(views.html.home(login.user)).withSession("connected" -> login.user)
+        if(logindao.verificarCredenciais(login.user, md5Hash(login.password)).length == 1){
+          val info = dadospessoaisdao.getData(login.user)
+          if(info.length == 1)
+            Ok(views.html.home(info(0))).withSession("connected" -> login.user)
+          else Unauthorized("Deu ruim")
+	}
         else Unauthorized("NÃO DEU NÃO")
       }
     )
@@ -56,7 +62,7 @@ class HomeController @Inject()(
     Ok(views.html.login()).withNewSession
   }
   def home() = Action { implicit request: Request[AnyContent] =>
-    request.session.get("connected").map { user => Ok(views.html.home(user)) }.getOrElse {
+    request.session.get("connected").map { user => Ok(views.html.home(dadospessoaisdao.getData(user)(0))) }.getOrElse {
       Unauthorized("Iiiiish")
     }
   }
@@ -79,6 +85,12 @@ class HomeController @Inject()(
   def oferta() = Action { implicit request: Request[AnyContent] =>
     Ok(views.html.ofertadepartamento(departamentosdao.getDepartamentos()))
   }
+  def materiasdepartamento(id: Int) = Action { implicit request: Request[AnyContent] =>
+    Ok(views.html.materiasdepartamento(materiasdao.getMateriasDepartamento(id)))
+  }
+  def turmas(id: Int) = Action { implicit request: Request[AnyContent] =>
+    Ok(views.html.turmas(turmasDAO.getTurmas(id), id, departamentosdao.getNomeDepartamento(id)))
+  }
   def resultado() = Action { implicit request: Request[AnyContent] =>
     Ok(views.html.resultado())
   }
@@ -89,6 +101,13 @@ class HomeController @Inject()(
       "password" -> nonEmptyText,
     )(loginVO.apply)(loginVO.unapply)    
   )
+  
+  val materiasGET = Form(
+    mapping(
+      "id"  -> number
+    )(materiasGETVO.apply)(materiasGETVO.unapply)    
+  )
 }
 
 case class loginVO(user: String, password: String)
+case class materiasGETVO(id: Int)

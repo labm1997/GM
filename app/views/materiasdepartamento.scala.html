@@ -1,0 +1,18 @@
+@(materias: List[Materias])
+<a class="listener" name="Oferta" href="dados/oferta_departamento">Voltar</a>
+<table>
+	<tbody>
+		<tr>
+			<th>Código</th>
+			<th>Nome</th>
+			<th>Créditos</th>
+		</tr>
+		@for(materia <- materias){
+		<tr>
+			<td>@materia.ID</td>
+			<td><a class="listener" href="dados/turmas?id=@materia.ID">@materia.nome</a></td>
+			<td>@materia.creditos</td>
+		</tr>
+		}
+	</tbody>
+</table>
