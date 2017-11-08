@@ -1,5 +1,5 @@
 @(materias: List[Materias])
-<a class="listener" name="Oferta" href="dados/oferta_departamento">Voltar</a>
+<a class="listener" href="voltar">Voltar</a>
 <table>
 	<tbody>
 		<tr>
@@ -10,7 +10,7 @@
 		@for(materia <- materias){
 		<tr>
 			<td>@materia.ID</td>
-			<td><a class="listener" href="dados/turmas?id=@materia.ID">@materia.nome</a></td>
+			<td><a class="listener" href="dados/materia?id=@materia.ID">@materia.nome</a></td>
 			<td>@materia.creditos</td>
 		</tr>
 		}

@@ -1,0 +1,33 @@
+@(materia: Materias, id: Int, preRequisitos: List[PreRequisito])
+<a class="listener" href="voltar" name="@materia.departamento">Voltar</a> | 
+<a class="listener" href="dados/turmas?id=@materia.ID" name="@materia.nome">Turmas</a>
+
+			<table>
+				<tbody>
+					<tr>
+						<td class = "">Departamento</td>
+						<td class = "">@materia.departamento</td>
+					</tr>
+
+					<tr>
+						<td class = "">Codigo</td>
+						<td class = "">@materia.ID</td>
+					</tr>
+
+					<tr>
+						<td class = "">Pré-requisitos</td>
+						<td class = "">
+						  @if(preRequisitos.length == 0) {Nenhum pré-requisito}
+						  @for(preRequisito <- preRequisitos){
+						    <a href="dados/materia?id=@preRequisito.ID" class="listener" name="@preRequisito.nome">@preRequisito.ID - @preRequisito.nome</a></br>	
+						  }
+						</td>
+					</tr>
+
+					<tr>
+						<td class = "">Ementa</td>
+						<td class ="">@materia.ementa</td>
+					</tr>
+
+				</tbody>
+			</table>

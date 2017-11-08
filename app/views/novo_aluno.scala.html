@@ -1,0 +1,22 @@
+@* novo_aluno Template File *@
+@(alunoForm: Form[AlunoVO])(implicit messages: Messages)
+
+@main("Novo aluno") {
+ @helper.form(action = routes.HomeController.novoAlunoSubmissao()) {
+  <table>
+    <tr>
+      <td>Matrícula</td>
+      <td><input name="matricula" type="text"></input></td>
+    </tr>
+    <tr>
+      <td>Nome</td>
+      <td><input name="nome" type="text"></input></td>
+    </tr>
+    <tr>
+      <td>Senha</td>
+      <td><input name="senha" type="text"></input></td>
+    </tr>
+  </table>
+  <button type="submit" class="listener">Cadastrar novo aluno</button>
+ }
+}

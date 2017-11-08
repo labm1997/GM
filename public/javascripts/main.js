@@ -1,3 +1,5 @@
+ var mobile = false;
+ 
  var q = {
   nothing: function(){},
   actions: function(object){
@@ -22,7 +24,7 @@
 	  a.onreadystatechange = function(){
 			if(f && f.constructor === q.actions) {
 		    if(a.readyState == a.DONE) {
-				    if(a.status === 200) f.done(a.responseText)
+				    if(a.status === 200 || a.status == 201) f.done(a.responseText)
 				    if(a.status >= 400 && a.status <= 410) f.fail(a.responseText)
 				}
 				else f.wait();
@@ -46,3 +48,51 @@
 	  a.send()
   }
  }
+
+/* Oculta/Mostra leftbar */
+function hideShowLeftBar(e){
+	var fixedbar = document.getElementsByClassName("leftbar")[0];
+  if(fixedbar.hidden) {
+    if(e) {
+      fixedbar.style.animation = "show .5s forwards";
+      fixedbar.hidden = false;
+    }
+  }
+  else {
+    fixedbar.style.animation = "hide .5s forwards";
+    fixedbar.hidden = true;
+  }
+}
+
+/* Detecta o tamanho da tela */
+function screenSelect() {
+	var w = screen.width * (window.devicePixelRatio || 1);
+	//var il = document.getElementById("inner_login");
+	//var cronograma = document.getElementById("cronograma");
+	var fixedbar = document.getElementsByClassName("leftbar")[0];
+	var topbar = document.getElementsByClassName("topbar")[0];
+	var logo = document.getElementsByClassName("logo")[0];
+	var pagestructure = document.getElementsByClassName("pagestructure")[0];
+	var loginform = document.getElementById("loginform");
+	var startx = 0;
+	
+	if (w > 1200) mobile = false;
+	else if(mobile == false) {
+	  //cronograma.style.display = "none"
+	  //il.style.width = "80%"
+	  fixedbar.style.position = "fixed";
+	  fixedbar.style.paddingTop = "57px";
+	  topbar.style.position = "fixed";
+	  logo.className += " logoleft";
+	  logo.addEventListener("click", function(){hideShowLeftBar(true)});
+	  pagestructure.addEventListener("click", function(){hideShowLeftBar(false)});
+	  pagestructure.addEventListener("touchstart", function(e){startx = e.changedTouches[0].clientX});
+	  pagestructure.addEventListener("touchend", function(e){if(startx && e.changedTouches[0].clientX-startx > 30 && startx < 100) hideShowLeftBar(true)});
+	  if(loginform) loginform.style.width = "100%";
+	  mobile = true;
+	}
+}
+
+
+
+setInterval(screenSelect, 100);

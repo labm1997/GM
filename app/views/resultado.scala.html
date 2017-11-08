@@ -1,4 +1,4 @@
-@()
+@(results: List[models.Result])
 <table>
 	<thead>
 		<tr>
@@ -11,13 +11,15 @@
 	</thead>
 	<tbody>
 		<!-- uma matéria -->
+		@for(result <- results){
 		<tr>
-			<td>ID da matéria </td>
-			<td>Nome da matéria </td>
-			<td>Turma </td>
+			<td>@result.ID</td>
+			<td>@result.nome</td>
+			<td>@result.letra</td>
 			<td>Etapa (pré-matrícula, ajuste, confirmação) </td>
-			<td>Resultado (matriculado, não matriculado e motivo) </td>
+			<td>@result.status</td>
 		</tr>
+		}
 		<!-- inserir mais para cada matéria -->
 	</tbody>
 </table>

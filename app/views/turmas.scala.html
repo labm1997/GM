@@ -1,20 +1,37 @@
 @(turmas: List[Turma], id_departamento: Int, departamento: Option[String])
-<a class="listener" name="@departamento" href="dados/materias_departamento?id=@id_departamento">Voltar</a>
-<table>
+<a class="listener" href="voltar">Voltar</a>
+<table class="centralize">
 	<tbody>
 		<tr>
 			<th>Código</th>
 			<th>Letra</th>
+			<th>Horário</th>
 			<th>Professor</th>
 			<th>Vagas</th>
+			<th></th>
 		</tr>
 		@for(turma <- turmas){
-		<tr>
-			<td>@turma.ID</td>
-			<td>@turma.letra</td>
-			<td>@turma.professor</td>
-			<td>@turma.vagas</td>
-		</tr>
+		  <tr>
+			  <td>@turma.ID</td>
+			  <td><h2>@turma.letra</h2></td>
+			  <td>
+			    <div class="horariobox">
+			      @for(horario <- turma.horarios){
+			      <div class="weekday">@horario.dia</div>
+			      <div class="time">@horario.inicio-@horario.fim</div>
+			      }
+			    </div>
+			  </td>
+			  <td>@turma.professor</td>
+			  <td>@turma.vagasrestantes/@turma.vagastotal</td>
+			  <td>
+		      <form action="dados/matricular" method="POST">
+		        <input type="text" value="@turma.ID" name="id" hidden></input>
+		        <input type="submit" value="Adicionar" class="listener" @if(turma.vagasrestantes <= 0){disabled}></input>
+		      </form>
+		    </td>
+		  </tr>
+		
 		}
 	</tbody>
 </table>
