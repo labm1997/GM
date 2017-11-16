@@ -1,0 +1,94 @@
+@(curso: cursos, fluxo: List[(Option[Int], List[Fluxo])])
+<input type="button" class="listener" href="voltar" value="Voltar"></input>
+<input type="button" class="botao" value="Currículo"></input>
+  <h2>@curso.habilitacao - @curso.hnome</h2>
+	<table>
+		<tbody>
+			<tr>
+				<td class = "">Quantidade de créditos para formatura</td>
+				<td class = "">@curso.creditos_exigidos</td>
+			</tr>
+			<tr>
+				<td class = "">Limite de permanência mínimo</td>
+				<td class = "">@curso.limite_permanencia_min</td>
+			</tr>
+			<tr>
+				<td class = "">Limite de permanência máximo</td>
+				<td class = "">@curso.limite_permanencia_max</td>
+			</tr>
+			<tr>
+				<td class = "">Creditos por período máximo</td>
+				<td class = "">@curso.creditos_por_periodo_max</td>
+			</tr>
+			<tr>
+				<td class = "">Creditos por período mínimo</td>
+				<td class = "">@curso.creditos_por_periodo_min</td>
+			</tr>
+			<tr>
+				<td class = "">Modalidade</td>
+				<td class = "">@curso.modalidade</td>
+			</tr>
+			<tr>
+				<td class = "">Turno</td>
+				<td class = "">@curso.turno</td>
+			</tr>
+			<tr>
+				<td class = "">Vigente</td>
+				<td class = "">@curso.vigente</td>
+			</tr>
+			<tr>
+				<td class = "">Reconhecido pelo MEC</td>
+				<td class = "">@curso.reconhecido_mec</td>
+			</tr>
+			<tr>
+				<td class = "">Nível</td>
+				<td class = "">@curso.nivel</td>
+			</tr>
+		</tbody>
+	</table>
+	<h2>Fluxo</h2>
+	@for(semestre <- fluxo){
+	  @semestre._1 match {
+	  case Some(i) => {
+	  <h3>@i.toString º Período</h3>
+	  <table>
+	    <tr>
+	      <th>
+	        Tipo
+	      </th>
+	      <th>
+	        Departamento
+	      </th>
+	      <th>
+	        Código
+	      </th>
+	      <th>
+	        Nome
+	      </th>
+	      <th>
+	        Créditos
+	      </th>
+	    </tr>
+	    @for(materia <- semestre._2){
+	    <tr>
+	      <td>
+	        @materia.tipo
+	      </td>
+	      <td>
+	        @materia.sigla
+	      </td>
+	      <td>
+	        @materia.ID_MATERIA
+	      </td>
+	      <td>
+	        <a class="listener" href="dados/materia?id=@materia.ID_MATERIA">@materia.nome</a>
+	      </td>
+	      <td>
+	        @materia.creditos
+	      </td>
+	    </tr>
+	    }
+	  </table>
+	  }
+	  }
+	}

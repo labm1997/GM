@@ -11,7 +11,10 @@
       <div class="logo logoleft">
         GM
       </div>
-      <a class="toplogout" href="logout">Sair</a>
+      <div class="toplogout">
+        <a href="dados/curso?id=@info.cursoID" class="listener">Fluxo</a>
+        <a href="logout">Sair</a>
+      </div>
     </div>
     <div class="pagestructure">
       <div class="tablestyle">
@@ -20,29 +23,37 @@
             <div class="foto"></div>
             Olá @info.matricula
           </div>
-          <div class="option listener" href="dados/dados_pessoais">Dados pessoais</div>
-          <div class="option listener" href="dados/grade_horaria">Grade Horária</div>
-          <div class="option listener" href="dados/historico_escolar">Histórico escolar</div>
+          <div class="option listener optionhover" href="dados/dados_pessoais">Dados pessoais</div>
+          <div class="option listener optionhover" href="dados/grade_horaria">Grade Horária</div>
+          <div class="option listener optionhover" href="dados/historico_escolar">Histórico escolar</div>
           <div class="vspace"></div>
-          <div class="option listener" href="dados/cursos">Cursos</div>
-          <div class="option listener" href="dados/oferta_departamento">Oferta</div>
+          <div class="option listener optionhover" href="dados/cursos">Cursos</div>
+          <div class="option listener optionhover" href="dados/oferta_departamento">Oferta</div>
           <div class="vspace"></div>
-          <div class="option listener">Matrícula</div>
-          <div class="option listener">Oferta Individual</div>
-          <div class="option listener" href="dados/lista_de_espera">Confirmar lista</div>
-          <div class="option listener" href="dados/resultado">Resultado</div>
-          <div class="option listener">Retirar matrícula</div>
-          <div class="option listener">Trancar disciplina</div>
-          <div class="option listener">Trancamento geral</div>
-	        <div class="vspace"></div>
-	        @{info.typed match{ case
-		        Some(tipo) => 
-		        if(tipo == "coordenador"){
-		        <div class="option">Coisas do coordenador</div>
-		        <div class="option listener" href="dados/novo_aluno">Adicionar aluno</div>
-		        }
-		        case None =>
-	        }}
+          <div class="option listener optionhover" href="dados/matricula">Matrícula</div>
+          <div class="option listener optionhover">Oferta Individual</div>
+          <div class="option listener optionhover" href="dados/lista_de_espera">Confirmar lista</div>
+          <div class="option listener optionhover" href="dados/resultado">Resultado</div>
+          <div class="option listener optionhover">Retirar matrícula</div>
+          <div class="option listener optionhover">Trancar disciplina</div>
+          <div class="option listener optionhover">Trancamento geral</div>
+	        @info.typed match{ case Some(tipo) => 
+	          @if(tipo == "coordenador" || tipo == "admin"){
+            <div class="vspace"></div>
+	          <div class="option">Coisas do coordenador</div>
+	          <div class="option listener optionhover" href="dados/novo_aluno">Gerenciar alunos</div>
+	          }
+	          @if(tipo == "professor" || tipo == "admin"){
+            <div class="vspace"></div>
+	          <div class="option">Coisas do professor</div>
+	          <div class="option listener optionhover" href="dados/mençao">Inserir menção</div>
+	          }
+	          @if(tipo == "coordenadorDEP" || tipo == "admin"){
+            <div class="vspace"></div>
+	          <div class="option">Coisas do coordenador de departamento</div>
+	          <div class="option listener optionhover" href="dados/ger_turmas">Gerenciar turmas</div>
+	          }
+	        }
         </div>
         <div class="content">
           <center>

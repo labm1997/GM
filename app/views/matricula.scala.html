@@ -1,0 +1,37 @@
+@(matriculas: List[models.Matricula])
+<table>
+	<thead>
+		<tr>
+			<th>Posição</th>
+			<th>Vagas</th>
+			<th>Código</th>
+			<th>Nome</th>
+			<th>Turma</th>
+			<th>Prioridade</th>
+			<th>Opções</th>
+		</tr>
+	</thead>
+	<tbody>
+		@for(matricula <- matriculas){
+		
+		<tr>
+			<td align="center"><div class="position @if(matricula.posicao > matricula.vagas){warn}"><h2>@matricula.posicao º</h2></div></td>
+			<td>@matricula.vagas</td>
+			<td>@matricula.ID_TURMA</td>
+			<td><a class="listener" href="dados/turmas?id=@matricula.ID_MATERIA">@matricula.nome</a></td>
+			<td>@matricula.letra</td>
+			<td align="center">
+			<form action="dados/matriculaAtualizar" method="POST">
+			  <input type="number" name="idturma" value="@matricula.ID_TURMA" hidden></input>
+			  <input type="number" class="bigNumber listener" name="prioridade" value="@matricula.prioridade" href=""></input>
+			</form>
+			</td>
+			<td align="center">
+			  <input type="button" name="Matricula" value="Retirar" class="listener" href="dados/retirarMatricula?idturma=@matricula.ID_TURMA"></input>
+			</td>
+		</tr>
+		
+		}
+		<!-- inserir mais para cada matéria -->
+	</tbody>
+</table>

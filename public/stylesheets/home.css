@@ -50,7 +50,8 @@ input[type="submit"],input[type="button"] {
 	font-family: Droid Sans;
 	border-radius: 2px;
 	font-size: 16px;
-	margin-bottom: 10px;
+	margin-top: 5px;
+	margin-bottom: 5px;
 	background: #2ACCE0;
 	outline: none;
 	cursor: pointer;
@@ -75,7 +76,15 @@ input[type="submit"]:hover,input[type="button"]:hover {
   border-radius: 5px;
   background: #fffae2;
   text-align: center;
+  margin-top: 5px;
+  margin-bottom: 5px;
 }
+
+table.gradehoraria td{
+  border-bottom: 1px solid rgba(0,0,0,0.1);
+}
+
+.matriculado{background: #e2ffed}
 
 div.horariobox{
   border: 1px solid #000;
@@ -93,4 +102,16 @@ div.horariobox div.time{
   display: block;
   width: 100%;
   clear: both;
+}
+
+td div.position{
+  background: #2dea58;
+  display: inline-block;
+  position: relative;
+  padding: 5px 10px 5px 10px;
+  box-shadow: 0px 0px 3px 0px rgba(0,0,0,0.2);
+}
+
+.warn{
+ background: #fc001b !important; 
 }

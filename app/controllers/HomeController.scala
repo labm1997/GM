@@ -25,6 +25,8 @@ class HomeController @Inject()(
   turmasDAO : turmasDAO,
   alunosdao : Alunodao,
   caracteristicasdao : Caracteristicasdao,
+  historicodao : historicoDAO,
+  gradeHorariadao : gradeDAO,
   
   cc: ControllerComponents) 
   extends AbstractController(cc) with I18nSupport {
@@ -79,13 +81,42 @@ class HomeController @Inject()(
     }
   }
   def gradeHoraria() = Action { implicit request: Request[AnyContent] =>
-    Ok(views.html.gradehoraria())
+    request.session.get("connected").map { user => 
+      Ok(views.html.gradehoraria(gradeHorariadao.getGrade(user)))
+    }.getOrElse {
+      Unauthorized("Iiiiish")
+    }
   }
   def historicoEscolar() = Action { implicit request: Request[AnyContent] =>
-    Ok(views.html.historicoescolar())
+    request.session.get("connected").map { user => 
+      var historico = historicodao.getHistorico(user).groupBy(a=>a.semestre).toList sortBy (_._1)
+      Ok(views.html.historicoescolar(historico))
+    }.getOrElse {
+      Unauthorized("Iiiiish")
+    }
   }
   def cursos() = Action { implicit request: Request[AnyContent] =>
     Ok(views.html.cursos(cursosdao.getCursos()))
+  }
+  def habilitacoes(idcurso: Int) = Action { implicit request: Request[AnyContent] =>
+    var habilitacoes = cursosdao.getHabilitacoes(idcurso)
+    Ok(views.html.habilitacoes(habilitacoes))
+  }
+  def curso(idHabilitacao: Int) = Action { implicit request: Request[AnyContent] =>
+    var cursoData = cursosdao.getCursoHabilitacaoData(idHabilitacao)
+    
+    if(cursoData.length == 1){
+      cursoData(0).habilitacao match {
+        case Some(i) => {
+          var fluxoData = cursosdao.getFluxo(i).groupBy(a=>a.semestre).toList sortBy (_._1)
+          Ok(views.html.curso(cursoData(0), fluxoData))
+        }
+        case None => {
+          BadRequest("Eita, não consegui desculpa")
+        }
+      }
+    }
+    else BadRequest("Eita, não consegui desculpa")
   }
   def oferta() = Action { implicit request: Request[AnyContent] =>
     Ok(views.html.ofertadepartamento(departamentosdao.getDepartamentos()))
@@ -109,7 +140,7 @@ class HomeController @Inject()(
   }
   def materia(id: Int) = Action { implicit request: Request[AnyContent] =>
     var materias = materiasdao.getMateria(id)
-    var preRequisitos = materiasdao.getPrerequisitos(id)
+    var preRequisitos = materiasdao.getPrerequisitos(id).groupBy(_.N_GRUPO).toList
     if(materias.length == 1){
       Ok(views.html.materia(materias(0), id, preRequisitos))
     }
@@ -117,21 +148,35 @@ class HomeController @Inject()(
   }
   
   def novo_aluno() = Action { implicit request: Request[AnyContent] => 
-    Ok(views.html.novo_aluno(alunoForm))
+    request.session.get("connected").map { user => 
+      /* !TODO verificar se user é coordenador */
+      Ok(views.html.novo_aluno(alunoForm, alunosdao.mostrarAlunosCoordenador(user)))
+    }.getOrElse {
+      Unauthorized("Iiiiish")
+    }
   }
 
   def novoAlunoSubmissao = Action { implicit request =>
-    alunoForm.bindFromRequest.fold(
-      formWithErrors => {
-        BadRequest("Há um erro")
-      },
-      aluno => {
-        val novoAluno = Aluno(aluno.matricula, aluno.nome, aluno.senha)
-        alunosdao.salvar(novoAluno)
-        Created(views.html.novo_aluno(alunoForm))
-      }
-    )
-   }
+    request.session.get("connected").map { user => 
+      /* !TODO verificar se user é coordenador */
+      alunoForm.bindFromRequest.fold(
+        formWithErrors => {
+          BadRequest("Há um erro de formulário")
+        },
+        aluno => {
+          val novoAluno = AlunoPost(aluno.matricula, aluno.nome, md5Hash(aluno.senha), aluno.semestre_inicio)
+          dadospessoaisdao.getData(user)(0).cursoID match {
+            case Some(curso) => 
+              alunosdao.salvar(novoAluno, curso)
+              Created(views.html.novo_aluno(alunoForm, alunosdao.mostrarAlunosCoordenador(user)))
+            case None => Unauthorized("Há um erro")
+          }
+        }
+      )
+    }.getOrElse {
+      Unauthorized("Iiiiish")
+    }
+  }
 
   def matricular = Action { implicit request =>
     request.session.get("connected").map { user => 
@@ -140,32 +185,80 @@ class HomeController @Inject()(
           BadRequest("Há um erro")
         },
         requisicao => {
-          val r = turmasDAO.addMatricula(requisicao.id, user)
-          r match {
-            case Some(a) => Ok("Inseriu");
-            case None => BadRequest("Erro ao inserir")
+          val turma = turmasDAO.getTurmaData(requisicao.id)
+          if(turma.length == 1){
+            val r = turmasDAO.addMatricula(turma(0), user, materiasdao.getPrerequisitos(turma(0).ID_MATERIA))
+            r match {
+              case Some(a) => Ok("Inseriu");
+              case None => BadRequest("Erro ao inserir")
+            }
           }
+          else Unauthorized("Turma inválida")
         }
       )
     }.getOrElse {
       Unauthorized("Iiiiish")
     }
-}    
-  def SubmeterCar = Action { implicit request =>
-    caractForm.bindFromRequest.fold(
-      formWithErrors => {
-	//BadRequest(views.html.caracteristicas(formWithErrors))
-        BadRequest("deu ruim")	
-},
-	caracteristica => {
-	  //val novaCar = Caracteristicas(caracteristica.cpf, caracteristica.nomepai, caracteristica.nomemae, caracteristica.nacionalidade, caracteristica.rg, caracteristica.sexo, caracteristica.data_nascimento, caracteristica.nivel, caracteristica.pne, caracteristica.endereco, caracteristica.uf, caracteristica.cidade, caracteristica.cep, caracteristica.email, caracteristica.telefone, caracteristica.celular, caracteristica.racacor)
-	  //caracteristicasdao.salvarCar(novaCar)
-	  //Created(views.html.caracteristicas(caractForm))
-          BadRequest("nao implementado")	
-}
-    )
+  }
+  
+  def retirarMatricula(idturma: Int) = Action { implicit request =>
+    request.session.get("connected").map { user => 
+      turmasDAO.retirarMatricula(user, idturma)
+      Ok(views.html.matricula(turmasDAO.getSolicitacoes(user)))
+    }.getOrElse {
+      Unauthorized("Iiiiish")
+    }
   }
 
+  def matriculaAtualizar = Action { implicit request =>
+    request.session.get("connected").map { user => 
+      matriculaUpdateForm.bindFromRequest.fold(
+        formWithErrors => {
+          BadRequest("Há um erro")
+        },
+        requisicao => {
+          turmasDAO.atualizarMatricula(user,requisicao.idturma,requisicao.prioridade)
+          Ok(views.html.matricula(turmasDAO.getSolicitacoes(user)))
+        }
+      )
+    }.getOrElse {
+      Unauthorized("Iiiiish")
+    }
+  }
+
+  def nova_caracteristica() = Action { implicit request: Request[AnyContent] =>
+     Ok(views.html.caracteristicas(caractForm))
+  }
+
+    
+  def SubmeterCar = Action { implicit request =>
+    request.session.get("connected").map { user =>
+      caractForm.bindFromRequest.fold(
+        formWithErrors => {
+	        //BadRequest(views.html.caracteristicas(formWithErrors))
+          BadRequest("deu ruim")	
+        },
+	      caracteristica => {
+	        val nome = caracteristicasdao.getMatricula(user)
+	        val novaCar = Caracteristicas(user, caracteristica.cpf, caracteristica.nomepai, caracteristica.nomemae, caracteristica.nacionalidade, caracteristica.rg, caracteristica.sexo, caracteristica.data_nascimento, caracteristica.nivel, caracteristica.pne, caracteristica.endereco, caracteristica.uf, caracteristica.cidade, caracteristica.cep, caracteristica.email, caracteristica.telefone, caracteristica.celular, caracteristica.racacor)
+	        caracteristicasdao.salvarCar(novaCar)
+	        Created(views.html.caracteristicas(caractForm))
+          //BadRequest("nao implementado")	
+        }
+      )
+    }.getOrElse{
+	    Unauthorized("Ishhh")
+	  }
+  }
+  
+  def matricula() = Action { implicit request: Request[AnyContent] =>
+    request.session.get("connected").map { user => 
+      Ok(views.html.matricula(turmasDAO.getSolicitacoes(user)))
+    }.getOrElse {
+      Unauthorized("Iiiiish")
+    }
+    
+  }
 
 //  }/*esse é o da classe, só para nao se perder */
     
@@ -187,6 +280,7 @@ class HomeController @Inject()(
       "matricula" -> nonEmptyText,
       "nome" -> nonEmptyText,
       "senha" -> nonEmptyText,
+      "semestre_inicio" -> nonEmptyText
     )(AlunoVO.apply)(AlunoVO.unapply)
   )
 
@@ -194,6 +288,13 @@ class HomeController @Inject()(
     mapping(
       "id" -> number
     )(matriculaVO.apply)(matriculaVO.unapply)
+  )
+
+  val matriculaUpdateForm = Form(
+    mapping(
+      "idturma" -> number,
+      "prioridade" -> number
+    )(matriculaUpdateVO.apply)(matriculaUpdateVO.unapply)
   )
 
   val caractForm = Form(
@@ -222,6 +323,7 @@ class HomeController @Inject()(
 
 case class loginVO(user: String, password: String)
 case class materiasGETVO(id: Int)
-case class AlunoVO(matricula : String, nome : String, senha : String)
+case class AlunoVO(matricula : String, nome : String, senha : String, semestre_inicio: String)
 case class matriculaVO(id: Int)
+case class matriculaUpdateVO(idturma: Int, prioridade: Int)
 case class CaracteristicaVO(cpf: String, nomepai: String, nomemae: String, nacionalidade: String, rg: String, sexo: String, data_nascimento: String, nivel: String, pne: String, endereco: String, uf: String, cidade: String, cep: String, email: String, telefone: String, celular: String, racacor: String)

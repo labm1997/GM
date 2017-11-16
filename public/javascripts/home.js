@@ -4,7 +4,7 @@ function geClass(str){
 
 var pageload = document.getElementById("loadablepage");
 var options = [];
-var back = [];
+var back = [{name: "", href: "", scroll: null}];
 
 /* Carrega uma pagina */
 function loadPage(destine,f){
@@ -12,53 +12,65 @@ function loadPage(destine,f){
     done: function(d){
       document.body.style.cursor=""
       if(typeof(f) === "function") f();
-      if(pageload) pageload.innerHTML = "<h1 class='leftalign'>" + destine.name + "</h1>" + d;
-      back.push({name: destine.name, href: destine.href})
+      if(pageload) {
+        if(back.length && !back[back.length-1].scroll) back[back.length-1].scroll = document.body.scrollTop;
+        back.push({name: destine.name, href: destine.href, scroll: null})
+        pageload.innerHTML = "<h1 class='leftalign'>" + destine.name + "</h1>" + d;
+        if(destine.scroll) document.body.scrollTop = destine.scroll
+        else document.body.scrollTop = 0
+      }
     },
     wait: function(){document.body.style.cursor="progress"},
     fail: function(){document.body.style.cursor=""}
   }))
 }
 
+/* Função a ser executada quando o evento ocorrer */
+function eventAction(e,a,array,post){
+  e.preventDefault()
+  var info = {name: a.getAttribute("name") || a.innerText, href: e.target.getAttribute("href"), scroll: null}, destine,scroll
+  
+  /* Verifica se href é de voltar */
+  if(info.href == "voltar") {
+    console.log(back.pop());
+    destine = back.pop();
+    console.log(destine)
+  }
+  else destine = info;
+  
+  /* Para POST */
+  //console.log(e.target.form)
+  if(post && e.target.form) 
+    q.post(e.target.form.action, q.toFormData(e.target.form), new q.actions({
+      done: function(){
+        alert("Foi!")
+        loadPage(back.pop())
+      },
+      fail: function(){
+        alert("Não Foi!")
+      },
+      wait: function(){
+      }
+    }))
+  
+  /* Para GET */
+  else
+    if(destine && destine.href) loadPage(destine, function(){
+      array.forEach(function(b) {b.style.color=""})
+      e.target.style.color="rgba(255,255,255,1)"
+    })
+    else pageload.innerHTML = ""
+   
+}
 
 /* Cria um evento para as opções */
 function optionsListener(array){
   array.forEach(function(a){
-    a.addEventListener("click", function(e){
-      e.preventDefault()
-      var info = {name: a.getAttribute("name") || a.innerText, href: e.target.getAttribute("href")}, destine
-      
-      /* Verifica se href é de voltar */
-      if(info.href == "voltar") {
-        back.pop();
-        destine = back.pop();
-      }
-      else destine = info;
-      
-      /* Para POST */
-      console.log(e.target.form)
-      if(e.target.type == "submit" && e.target.form) 
-        q.post(e.target.form.action, q.toFormData(e.target.form), new q.actions({
-          done: function(){
-            alert("Foi!")
-            loadPage(back.pop())
-          },
-          fail: function(){
-            alert("Não Foi!")
-          },
-          wait: function(){
-          }
-        }))
-      
-      /* Para GET */
-      else
-        if(destine.href) loadPage(destine, function(){
-          array.forEach(function(b) {b.style.color=""})
-          e.target.style.color="rgba(255,255,255,1)"
-        })
-       
-    })
+    if(a.type == "number") a.addEventListener("change", function(e){eventAction(e,a,array,true)})
+    else if(a.type == "submit") a.addEventListener("click", function(e){eventAction(e,a,array,true)})
+    else a.addEventListener("click", function(e){eventAction(e,a,array)})
     
+    /* Deixa a opção branca */
     a.addEventListener("click", function(e){
       var open = e.target.getAttribute("open")
       var close = e.target.getAttribute("close")

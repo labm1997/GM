@@ -26,6 +26,7 @@
 		    if(a.readyState == a.DONE) {
 				    if(a.status === 200 || a.status == 201) f.done(a.responseText)
 				    if(a.status >= 400 && a.status <= 410) f.fail(a.responseText)
+				    if(parseInt(a.status/100)%5 == 0) alert("Erro de servidor");
 				}
 				else f.wait();
 			}
@@ -41,6 +42,7 @@
 		    if(a.readyState == a.DONE) {
 				    if(a.status === 200) f.done(a.responseText)
 				    if(a.status >= 400 && a.status <= 410) f.fail(a.responseText)
+				    if(parseInt(a.status/100)%5 == 0) alert("Erro de servidor");
 				}
 				else f.wait();
 			}

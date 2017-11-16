@@ -15,6 +15,34 @@ h1, h2 {
   font-family: URW Gothic L;
   font-weight: 400;
   margin-bottom: 0;
+  margin-top: 0;
+}
+
+input[type="number"].bigNumber {
+	background: none;
+  font-family: URW Gothic L;
+  font-weight: 400;
+	width: 60px;
+	font-size: 28px;
+	border: none;
+	border-bottom: 1px solid #333;
+	outline: none;
+	color: inherit;
+	text-align: center;
+	-moz-appearance: textfield !important;
+}
+
+input[type="number"].bigNumber:hover, input[type="number"].bigNumber:focus{
+	border-bottom: 1px solid #000;
+}
+
+::-webkit-input-placeholder { /* WebKit, Blink, Edge */
+    color: rgba(255,255,255,0.8);
+}
+
+input[type="number"].bigNumber::-webkit-inner-spin-button, input[type="number"].bigNumber::-webkit-outer-spin-button {
+    -webkit-appearance: none !important;
+    margin: 0 !important;
 }
 
 .leftalign {text-align: left}
@@ -54,11 +82,14 @@ div.topbarleft {
   text-align: left;
 }
 
-div.topbarleft a.toplogout {
-  color: #fff;
+div.topbarleft div.toplogout {
   position: absolute;
   right: 15px;
   top: 10px;
+}
+
+div.topbarleft div.toplogout a{
+  color: #fff;
 }
 
 div.subtopbar {
@@ -86,8 +117,8 @@ div.logoleft {padding-left: 15px;}
 div.pagestructure {
   display: block;
   width: 100%;
-  height: 100%;
   overflow-x: auto;
+  overflow-y: none;
 }
 
 div.tablestyle{
@@ -119,9 +150,8 @@ div.leftbar {
 
 div.leftbar div.option {
   color: rgba(255,255,255,0.7);
-  padding: 5px 0px 0px 15px;
+  padding: 5px 15px 0px 15px;
   font-family: Droid Sans;
-  cursor: pointer;
   display: inline-block;
   float: left;
   clear: both;
@@ -134,7 +164,8 @@ div.leftbar div.vspace {
   clear: both;
 }
 
-div.leftbar div.option:hover {
+div.leftbar div.optionhover:hover {
+  cursor: pointer;
   color: rgba(255,255,255,1);
 }
 
