@@ -1,0 +1,51 @@
+@(cursos: List[cursos])
+<input type="button" class="listener" href="voltar" value="Voltar"></input>
+  @for(curso <- cursos){
+  <h2>@curso.habilitacao - @curso.hnome</h2>
+	<table>
+		<tbody>
+			<tr>
+				<td class = "">Quantidade de créditos para formatura</td>
+				<td class = "">@curso.creditos_exigidos</td>
+			</tr>
+			<tr>
+				<td class = "">Limite de permanência mínimo</td>
+				<td class = "">@curso.limite_permanencia_min</td>
+			</tr>
+			<tr>
+				<td class = "">Limite de permanência máximo</td>
+				<td class = "">@curso.limite_permanencia_max</td>
+			</tr>
+			<tr>
+				<td class = "">Creditos por período máximo</td>
+				<td class = "">@curso.creditos_por_periodo_max</td>
+			</tr>
+			<tr>
+				<td class = "">Creditos por período mínimo</td>
+				<td class = "">@curso.creditos_por_periodo_min</td>
+			</tr>
+			<tr>
+				<td class = "">Modalidade</td>
+				<td class = "">@curso.modalidade</td>
+			</tr>
+			<tr>
+				<td class = "">Turno</td>
+				<td class = "">@curso.turno</td>
+			</tr>
+			<tr>
+				<td class = "">Vigente</td>
+				<td class = "">@curso.vigente</td>
+			</tr>
+			<tr>
+				<td class = "">Reconhecido pelo MEC</td>
+				<td class = "">@curso.reconhecido_mec</td>
+			</tr>
+			<tr>
+				<td class = "">Nível</td>
+				<td class = "">@curso.nivel</td>
+			</tr>
+		</tbody>
+	</table>
+	<input type="button" class="botao listener" href="dados/curso?id=@curso.habilitacao" value="Fluxo"></input>
+	<hr/>
+	}

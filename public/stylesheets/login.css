@@ -16,6 +16,10 @@ input[type="text"]:hover, input[type="password"]:hover, input[type="text"]:focus
 	border-bottom: 1px solid #fff;
 }
 
+::-webkit-input-placeholder { /* WebKit, Blink, Edge */
+    color: rgba(255,255,255,0.8);
+}
+
 input[type="submit"],input[type="button"] {    
 	border: 0;
 	background: none;
@@ -66,7 +70,7 @@ div.area_login div.inner_login {
 
 div.inner_login h1 {font-size: 50px;}
 
-div.inner_login form {width: 256px; display: inline-block;}
+form#loginform {width: 256px; display: inline-block;}
 
 div.area_login div.inner_login div.warnings {
   color: #fff;

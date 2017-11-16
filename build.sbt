@@ -19,4 +19,4 @@ libraryDependencies += "org.scalatestplus.play" %% "scalatestplus-play" % "3.1.2
 libraryDependencies += jdbc
 libraryDependencies += "com.typesafe.play" %% "anorm" % "2.5.3"
 libraryDependencies += "org.mariadb.jdbc" % "mariadb-java-client" % "1.4.5"
-
+libraryDependencies += "org.mindrot"  % "jbcrypt"   % "0.3m"

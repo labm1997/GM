@@ -32,24 +32,6 @@ document.getElementById("matricula_input").addEventListener("change", function(e
   else mostrador.limpar()
 })
 
-/* Detecta o tamanho da tela */
-function screenSelect() {
-	var w = screen.width * (window.devicePixelRatio || 1);
-	var il = document.getElementById("inner_login");
-	var cronograma = document.getElementById("cronograma");
-	
-	if (w > 1200) {
-	  cronograma.style.display = ""
-	  il.style.width = ""
-	}
-	else {
-	  cronograma.style.display = "none"
-	  il.style.width = "80%"
-	}
-}
-
-setInterval(screenSelect, 100);
-
 /* Faz submit do form */
 document.getElementById("loginbutton").addEventListener("click", function(e){
   e.preventDefault();

@@ -1,5 +1,5 @@
-@()
-<table>
+@(grade: List[GradeHoraria])
+<table class="gradehoraria">
 	<tbody>
 		<tr>
 			<th class="gradetempo"></th>
@@ -10,118 +10,36 @@
 			<th>Sexta</th>
 			<th>Sábado</th>
 		</tr>
+		@for(i <- (0 until 9)){
 		<tr>
-			<td class="gradetempo">06  08</td>
-			<td></td>
-			<td></td>
-			<td></td>
-			<td></td>
-			<td></td>
-			<td></td>
+			<td class="gradetempo">@("%02d" format (6+2*i))  @("%02d" format (6+2*i+2))</td>
+			@for(j <- (0 until 6)){
+			  <td>
+			    @for(turma <- grade.filter(_.dia == j+1).filter(_.inicio == 6+2*i)){
+			      @if(turma.status == "matriculado"){<div class="grademateria matriculado">} else{<div class="grademateria">}
+			      @turma.materia
+			      <h2>@turma.letra</h2>
+			      </div>
+			    }
+			  </td>
+			}
 		</tr>
-		<tr>
-			<td class="gradetempo">08  10</td>
-			<td><div class="grademateria">Cálculo 3</div></td>
-			<td></td>
-			<td><div class="grademateria">Cálculo 3</div></td>
-			<td></td>
-			<td><div class="grademateria">Cálculo 3</div></td>
-			<td></td>
-		</tr>
-		<tr>
-			<td class="gradetempo">10  12</td>
-			<td><div class="grademateria">Teoria dos Números</div></td>
-			<td><div class="grademateria">Relatividade e Física Quântica</div></td>
-			<td><div class="grademateria">Teoria dos Números</div></td>
-			<td><div class="grademateria">Relatividade e Física Quântica</div></td>
-			<td><div class="grademateria">Relatividade e Física Quântica</div></td>
-			<td></td>
-		</tr>
-		<tr>
-			<td class="gradetempo">12  14</td>
-			<td></td>
-			<td></td>
-			<td></td>
-			<td></td>
-			<td></td>
-			<td></td>
-		</tr>
-		<tr>
-			<td class="gradetempo">14  16</td>
-			<td><div class="grademateria">Estrutura de dados</div></td>
-			<td></td>
-			<td><div class="grademateria">Estrutura de dados</div></td>
-			<td></td>
-			<td></td>
-			<td></td>
-		</tr>
-		<tr>
-			<td class="gradetempo">16  18</td>
-			<td></td>
-			<td><div class="grademateria">Introdução à Álgebra Linear</div></td>
-			<td></td>
-			<td><div class="grademateria">Introdução à Álgebra Linear</div></td>
-			<td></td>
-			<td></td>
-		</tr>
-		<tr>
-			<td class="gradetempo">18  20</td>
-			<td></td>
-			<td></td>
-			<td></td>
-			<td></td>
-			<td></td>
-			<td></td>
-		</tr>
-		<tr>
-			<td class="gradetempo">20  22</td>
-			<td></td>
-			<td></td>
-			<td></td>
-			<td></td>
-			<td></td>
-			<td></td>
-		</tr>
-		<tr>
-			<td class="gradetempo">22  24</td>
-			<td></td>
-			<td></td>
-			<td></td>
-			<td></td>
-			<td></td>
-			<td></td>
-		</tr>
+		}
 	</tbody>
 </table>
 <table>
   <tr>
     <th>Código</th>
     <th>Matéria</th>
+    <th>Turma</th>
     <th>Professor</th>
   </tr>
+  @for(materia <- grade){
   <tr>
-    <td></td>
-    <td>Cálculo 3</td>
-    <td>Célius Magalhães</td>
+    <td>@materia.ID</td>
+    <td><a class="listener" href="dados/materia?id=@materia.ID">@materia.materia</a></td>
+    <td align="center"><h2>@materia.letra</h2></td>
+    <td>@materia.professor</td>
   </tr>
-  <tr>
-    <td></td>
-    <td>Teoria dos Números</td>
-    <td>Noraí Rocco</td>
-  </tr>
-  <tr>
-    <td></td>
-    <td>Introdução à Álgebra Linear</td>
-    <td>Irina Sviridova</td>
-  </tr>
-  <tr>
-    <td></td>
-    <td>Relatividade e Física Quântica</td>
-    <td>Algum gostoso do IF</td>
-  </tr>
-  <tr>
-    <td></td>
-    <td>Estruturas de Dados</td>
-    <td>Li Weigang</td>
-  </tr>
+  }
 </table>

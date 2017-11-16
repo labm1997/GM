@@ -4,17 +4,32 @@
 # ~~~~
 
 # An example controller showing a sample home page
-GET     /                           controllers.HomeController.index
-GET     /login                      controllers.HomeController.login
-POST    /home                       controllers.HomeController.sessionStart
-GET     /home                       controllers.HomeController.home
-GET     /logout                     controllers.HomeController.sessionEnd
-GET     /dados/dados_pessoais       controllers.HomeController.dadosPessoais
-GET     /dados/grade_horaria        controllers.HomeController.gradeHoraria
-GET     /dados/historico_escolar    controllers.HomeController.historicoEscolar
-GET     /dados/cursos               controllers.HomeController.cursos
-GET     /dados/oferta_departamento  controllers.HomeController.oferta
-GET     /dados/resultado  controllers.HomeController.resultado
+GET    /                            controllers.HomeController.index
+GET    /login                       controllers.HomeController.login
+POST   /home                        controllers.HomeController.sessionStart
+GET    /home                        controllers.HomeController.home
+GET    /logout                      controllers.HomeController.sessionEnd
+GET    /dados/dados_pessoais        controllers.HomeController.dadosPessoais
+GET    /dados/grade_horaria         controllers.HomeController.gradeHoraria
+GET    /dados/historico_escolar     controllers.HomeController.historicoEscolar
+GET    /dados/cursos                controllers.HomeController.cursos
+GET    /dados/curso                 controllers.HomeController.curso(id: Int ?=0)
+GET    /dados/habilitacoes          controllers.HomeController.habilitacoes(id: Int ?=0)
+GET    /dados/oferta_departamento   controllers.HomeController.oferta
+GET    /dados/resultado             controllers.HomeController.resultado
+GET    /dados/materias_departamento controllers.HomeController.materiasdepartamento(id: Int ?=0)
+GET    /dados/turmas                controllers.HomeController.turmas(id: Int ?=0)
+GET    /dados/lista_de_espera       controllers.HomeController.listaEspera
+GET    /dados/materia               controllers.HomeController.materia(id: Int)
+GET    /dados/novo_aluno            controllers.HomeController.novo_aluno
+POST   /dados/estudantes            controllers.HomeController.novoAlunoSubmissao
+POST   /dados/matricular            controllers.HomeController.matricular
+GET    /dados/caracteristicas       controllers.HomeController.nova_caracteristica
+POST   /dados/caracteristicasAluno  controllers.HomeController.SubmeterCar
+GET    /dados/matricula             controllers.HomeController.matricula
+GET    /dados/retirarMatricula      controllers.HomeController.retirarMatricula(idturma: Int ?=0)
+POST   /dados/matriculaAtualizar    controllers.HomeController.matriculaAtualizar
+
 
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file               controllers.Assets.versioned(path="/public", file: Asset)
