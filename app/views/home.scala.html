@@ -37,23 +37,21 @@
           <div class="option listener optionhover">Retirar matrícula</div>
           <div class="option listener optionhover">Trancar disciplina</div>
           <div class="option listener optionhover">Trancamento geral</div>
-	        @info.typed match{ case Some(tipo) => 
-	          @if(tipo == "coordenador" || tipo == "admin"){
-            <div class="vspace"></div>
-	          <div class="option">Coisas do coordenador</div>
-	          <div class="option listener optionhover" href="dados/novo_aluno">Gerenciar alunos</div>
-	          }
-	          @if(tipo == "professor" || tipo == "admin"){
-            <div class="vspace"></div>
-	          <div class="option">Coisas do professor</div>
-	          <div class="option listener optionhover" href="dados/mençao">Inserir menção</div>
-	          }
-	          @if(tipo == "coordenadorDEP" || tipo == "admin"){
-            <div class="vspace"></div>
-	          <div class="option">Coisas do coordenador de departamento</div>
-	          <div class="option listener optionhover" href="dados/ger_turmas">Gerenciar turmas</div>
-	          }
-	        }
+          @if(info.typed == "coordenador" || info.typed == "admin"){
+          <div class="vspace"></div>
+          <div class="option">Coisas do coordenador</div>
+          <div class="option listener optionhover" href="dados/novo_aluno">Gerenciar alunos</div>
+          }
+          @if(info.typed == "professor" || info.typed == "admin"){
+          <div class="vspace"></div>
+          <div class="option">Coisas do professor</div>
+          <div class="option listener optionhover" href="dados/mençao">Inserir menção</div>
+          }
+          @if(info.typed == "coordenadorDEP" || info.typed == "admin"){
+          <div class="vspace"></div>
+          <div class="option">Coisas do coordenador de departamento</div>
+          <div class="option listener optionhover" href="dados/ger_turmas">Gerenciar turmas</div>
+          }
         </div>
         <div class="content">
           <center>

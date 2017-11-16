@@ -11,7 +11,7 @@ import javax.inject.Inject
 import play.api.db.Database
 import javax.inject.Singleton
 
-case class dadosPessoais(nome: Option[String], nomepai: Option[String], nomemae: Option[String], nacionalidade: Option[String], rg: Option[String], sexo: Option[String], matricula: Option[String], cpf: Option[String], semestreinicio: Option[String], curso: Option[String], cursoID: Option[Int], typed: Option[String], datanascimento: Option[String], nivel: Option[String], bloqueado: Option[String], pne: Option[String], endereco: Option[String], uf: Option[String], cidade: Option[String], cep: Option[String], email: Option[String], telefone: Option[String], celular: Option[String], racacor: Option[String])
+case class dadosPessoais(nome: Option[String], nomepai: Option[String], nomemae: Option[String], nacionalidade: Option[String], rg: Option[String], sexo: Option[String], matricula: Option[String], cpf: Option[String], semestreinicio: Option[String], curso: Option[String], cursoID: Option[Int], typed: String, datanascimento: Option[String], nivel: Option[String], bloqueado: Option[String], pne: Option[String], endereco: Option[String], uf: Option[String], cidade: Option[String], cep: Option[String], email: Option[String], telefone: Option[String], celular: Option[String], racacor: Option[String])
 
 class dadosPessoaisDAO @Inject() (database: Database) {
   val parser : RowParser[dadosPessoais] = Macro.namedParser[dadosPessoais]
