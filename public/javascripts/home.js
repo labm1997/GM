@@ -6,6 +6,34 @@ var pageload = document.getElementById("loadablepage");
 var options = [];
 var back = [{name: "", href: "", scroll: null}];
 
+/* Mensagem de tela inteira */
+var fullBox = {
+  DOM: document.getElementsByClassName("fullbox")[0],
+  windowList: [document.getElementsByClassName("window")[0], document.getElementsByClassName("windowtop")[0], document.getElementsByClassName("windowtext")[0], document.getElementsByClassName("windowlabel")[0]],
+  close: function(){
+    this.DOM.style.display = "none"
+    this.windowList[1].className = "windowtop"
+  },
+  show: function(label, message, className){
+    this.windowList[3].innerText = label
+    this.windowList[2].innerHTML = message
+    this.windowList[1].className += " " + className || ""
+    this.DOM.style.display = "block"
+  }
+}
+
+fullBox.DOM.addEventListener("click", function(e){
+ if(fullBox.windowList.indexOf(e.target) == -1) fullBox.close()
+})
+
+/* Mensagem de sinalizador */
+var sinalizador = {
+  DOM: document.getElementById("sinalizador"),
+  show: function(message){
+    this.DOM.innerText = message
+  }
+}
+
 /* Carrega uma pagina */
 function loadPage(destine,f){
   q.get(destine.href, new q.actions({
@@ -21,7 +49,11 @@ function loadPage(destine,f){
       }
     },
     wait: function(){document.body.style.cursor="progress"},
-    fail: function(){document.body.style.cursor=""}
+    fail: function(){document.body.style.cursor=""},
+    serverError: function(m){
+      document.body.style.cursor=""
+      fullBox.show("Falha grave", "Erro no servidor, veja a falha completa <a target='_blank' href=\"data:text/html;charset=utf-8,"+encodeURIComponent(m)+"\">aqui</a>", "windowtopServerError")
+    }
   }))
 }
 
@@ -42,14 +74,21 @@ function eventAction(e,a,array,post){
   //console.log(e.target.form)
   if(post && e.target.form) 
     q.post(e.target.form.action, q.toFormData(e.target.form), new q.actions({
-      done: function(){
-        alert("Foi!")
+      done: function(m){
+        fullBox.show("Sucesso", m)
+        sinalizador.show("")
         loadPage(back.pop())
       },
-      fail: function(){
-        alert("Não Foi!")
+      fail: function(m){
+        fullBox.show("Falha", m, "windowtopError")
+        sinalizador.show("")
+      },
+      serverError: function(m){
+        fullBox.show("Falha grave", "Erro no servidor, veja a falha completa <a target='_bottom' href=\"data:octet-stream;base64,"+btoa(m)+"\">aqui</a>", "windowtopServerError")
+        sinalizador.show("")
       },
       wait: function(){
+        sinalizador.show("Atualizando...")
       }
     }))
   

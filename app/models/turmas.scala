@@ -141,7 +141,7 @@ class turmasDAO @Inject() (database: Database) {
     !TODO Implementar desempate por posição no fluxo e por IRA
   */
   def getSolicitacoesOrder(idturma: Int) = database.withConnection { implicit connection =>
-    SQL("SELECT tbl_cursos.nome,tbl_users.matricula, CASE (SELECT tbl_cursos_materias.type FROM tbl_cursos_materias WHERE tbl_cursos_materias.ID_MATERIA=tbl_turmas.ID_MATERIA AND tbl_cursos_materias.ID_CURSO=tbl_cursos.habilitacao) WHEN 'OBR' THEN 1 WHEN 'OPT' THEN 2 WHEN 'ML' THEN 3 ELSE 3 END AS tipo from tbl_turmas_matricula INNER JOIN tbl_turmas ON tbl_turmas.ID=tbl_turmas_matricula.ID_TURMA INNER JOIN tbl_materias ON tbl_materias.ID=tbl_turmas.ID_MATERIA INNER JOIN tbl_users ON tbl_users.matricula = tbl_turmas_matricula.MATRICULA LEFT JOIN tbl_cursos ON tbl_cursos.habilitacao=tbl_users.curso  WHERE tbl_turmas_matricula.ID_TURMA=1 AND tbl_turmas_matricula.status = 'aguardando' ORDER BY tipo,prioridade").on("idturma" -> idturma).as(parserorderList.*)
+    SQL("SELECT tbl_cursos.nome,tbl_users.matricula, CASE (SELECT tbl_cursos_materias.type FROM tbl_cursos_materias WHERE tbl_cursos_materias.ID_MATERIA=tbl_turmas.ID_MATERIA AND tbl_cursos_materias.ID_CURSO=tbl_cursos.habilitacao) WHEN 'OBR' THEN 1 WHEN 'OPT' THEN 2 WHEN 'ML' THEN 3 ELSE 3 END AS tipo from tbl_turmas_matricula INNER JOIN tbl_turmas ON tbl_turmas.ID=tbl_turmas_matricula.ID_TURMA INNER JOIN tbl_materias ON tbl_materias.ID=tbl_turmas.ID_MATERIA INNER JOIN tbl_users ON tbl_users.matricula = tbl_turmas_matricula.MATRICULA LEFT JOIN tbl_cursos ON tbl_cursos.habilitacao=tbl_users.curso  WHERE tbl_turmas_matricula.ID_TURMA={idturma} AND tbl_turmas_matricula.status = 'aguardando' ORDER BY tipo,prioridade").on("idturma" -> idturma).as(parserorderList.*)
   }
   
   /*
@@ -149,8 +149,12 @@ class turmasDAO @Inject() (database: Database) {
   */
   def getSolicitacoes(user: String): List[Matricula] = database.withConnection { implicit connection =>
     var turmasResult = getResultAguardando(user)
-    return turmasResult.map(turma =>
-      new Matricula(turma.ID, turma.ID_TURMA, turma.nome, turma.letra, getSolicitacoesOrder(turma.ID_TURMA).zipWithIndex.filter(i => i._1.matricula == user)(0)._2+1, turma.prioridade, turma.vagas)    
+    return turmasResult.map(turma => {
+      var posicao = getSolicitacoesOrder(turma.ID_TURMA).zipWithIndex.filter(i => i._1.matricula == user)
+      new Matricula(turma.ID, turma.ID_TURMA, turma.nome, turma.letra, 
+      {if(posicao.length == 1) posicao(0)._2+1 else 0}, 
+      turma.prioridade, turma.vagas)
+      }
     )
   }
   

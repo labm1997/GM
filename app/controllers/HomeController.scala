@@ -59,7 +59,7 @@ class HomeController @Inject()(
           if(info.length == 1)
             Ok(views.html.home(info(0))).withSession("connected" -> login.user)
           else Unauthorized("Deu ruim")
-	}
+	      }
         else Unauthorized("NÃO DEU NÃO")
       }
     )
@@ -168,7 +168,7 @@ class HomeController @Inject()(
           dadospessoaisdao.getData(user)(0).cursoID match {
             case Some(curso) => 
               alunosdao.salvar(novoAluno, curso)
-              Created(views.html.novo_aluno(alunoForm, alunosdao.mostrarAlunosCoordenador(user)))
+              Created("Aluno inserido com sucesso")
             case None => Unauthorized("Há um erro")
           }
         }
@@ -189,7 +189,7 @@ class HomeController @Inject()(
           if(turma.length == 1){
             val r = turmasDAO.addMatricula(turma(0), user, materiasdao.getPrerequisitos(turma(0).ID_MATERIA))
             r match {
-              case Some(a) => Ok("Inseriu");
+              case Some(a) => Ok("Solicitação efetuada");
               case None => BadRequest("Erro ao inserir")
             }
           }
@@ -218,7 +218,7 @@ class HomeController @Inject()(
         },
         requisicao => {
           turmasDAO.atualizarMatricula(user,requisicao.idturma,requisicao.prioridade)
-          Ok(views.html.matricula(turmasDAO.getSolicitacoes(user)))
+          Ok("Solicitação efetuada")
         }
       )
     }.getOrElse {
@@ -236,7 +236,7 @@ class HomeController @Inject()(
       caractForm.bindFromRequest.fold(
         formWithErrors => {
 	        //BadRequest(views.html.caracteristicas(formWithErrors))
-          BadRequest("deu ruim")	
+          BadRequest("Formulário com erros")	
         },
 	      caracteristica => {
 	        val nome = caracteristicasdao.getMatricula(user)

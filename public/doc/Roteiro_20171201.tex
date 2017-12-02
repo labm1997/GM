@@ -1,0 +1,68 @@
+\documentclass{article}
+\usepackage[portuguese]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage[top=2cm,bottom=2cm,left=2cm,right=2cm]{geometry}
+\usepackage{enumerate}
+\usepackage[T1]{fontenc}
+\usepackage[dvipsnames]{xcolor}
+\usepackage{color}
+\usepackage{longtable}
+\usepackage{amssymb}
+
+\newcommand{\pendente}{\textbf{...}}
+\newcommand{\concluido}{\checkmark}
+\newcommand{\atrasado}{\color{OrangeRed} $\times$}
+
+\newenvironment{tarefas}{\begin{longtable}{llrrr}}{\end{longtable}}
+
+\newcommand{\tarefa}[7]{
+  \multicolumn{5}{l}{\parbox{15cm}{\textbf{Tarefa} \emph{#1}\\ #2}}
+	\\\\\hline\textbf{Prazo e responsáveis:} & #3, #4 & \textbf{Dificuldade:} #5 & \textbf{Prioridade:} #6 & #7\\\hline\\
+}
+
+\title{Planejamento}
+\date{}
+
+\begin{document}
+  \maketitle
+  \begin{tarefas}
+	  \tarefa{Implementar trancamento geral}{
+	    Esta página deverá conter um botão, ao clicar no botão as seguintes ações deve ocorrer em ordem:
+	    \begin{itemize}
+	      \item A coluna \textit{trancamento} no banco de dados do usuário que trancou deve ser definida como $1$.
+	      \item Usando a tabela \textit{tbl\_turmas\_matricula} pegar as matérias em que o usuário está matriculado e inserir na tabela \textit{tbl\_historico} a menção $6$ de trancamento como definido na tabela \textit{tbl\_mençoes}
+	      \item Para toda matéria em \textit{tbl\_turmas\_matricula} do usuário, mudar a coluna \textit{status} para \textit{trancado}
+	    \end{itemize}
+	  }{?}{Hélio e Ivan}{Fácil}{Máxima}{\pendente}
+	  \tarefa{Implementar trancar disciplina}{
+	    A página deve listar todas as turmas em que o usuário está matriculado usando a tabela \textit{tbl\_turmas\_matricula} e para cada matéria deve existir um botão que, ao clicado, deve produzir as seguintes ações:
+	    \begin{itemize}
+	      \item Deve-se inserir na tabela \textit{tbl\_historico} a menção $6$ de trancamento como definido na tabela \textit{tbl\_mençoes} para a matéria clicada
+	      \item Deve-se mudar a coluna \textit{status} da tabela \textit{tbl\_turmas\_matricula} para \textit{trancado} referente a essa matéria
+	    \end{itemize}
+	  }{?}{Hélio e Ivan}{Fácil}{Máxima}{\pendente}
+	  \tarefa{Implementar Retirar matrícula}{
+	    A página deve listar todas as turmas em que o usuário está matriculado usando a tabela \textit{tbl\_turmas\_matricula} e para cada matéria deve existir um botão que, ao clicado, deve produzir as seguintes ações:
+	    \begin{itemize}
+	      \item Deve-se mudar a coluna \textit{status} da tabela \textit{tbl\_turmas\_matricula} para \textit{retirado} referente a essa matéria
+	    \end{itemize}
+	  }{?}{Hélio e Ivan}{Fácil}{Máxima}{\pendente}
+	  \tarefa{Implementar Inserir menção}{
+	    A página deve existir somente para professor. Listar todas as turmas que o professor está lecionando e, para cada turma, uma lista com os alunos matriculados. Para cada aluno deve haver um \textit{input} do tipo \textit{text} que receberá os valores SS, MS, MM, MI, II, SR e CC. Quando a página for carregada esses \textit{inputs} deverão ter valores \textit{default} definidos caso o professor já tenha lançado a menção. Portanto, ao carregar a página deve-se buscar na tabela \textit{tbl\_historico} uma menção da turma em questão daquele aluno, se não encontrar deixe o valor padrão do \textit{input} vazio. O \textit{input} deve ser ativado com um evento \textit{onchange} de maneira que, quando o professor digitar uma menção, a menção já seja definida automaticamente. Para lançar uma menção deve-se adicionar uma linha na tabela \textit{tbl\_historico}.
+	  }{?}{Hélio e Ivan}{Difícil}{Mínima}{\pendente}
+	  \tarefa{Implementar Gerenciar turmas}{
+	    A página deve existir somente para coordenador de departamento. Listar todas as turmas do departamento do coordenador. Para cada turma deve haver o botão remover. Ao clicar no botão de remover as seguintes ações devem ocorrer:
+	    \begin{itemize}
+	      \item Deve-se deletar todas as linhas referentes à turma em questão, usando o \textit{ID} da turma na tabela \textit{tbl\_turmas\_horarios}
+	      \item Deve-se deletar todas as linhas referentes à turma em questão da tabela \textit{tbl\_turmas\_matricula}
+	      \item Deve-se deletar a linha da turma da tabela \textit{tbl\_turmas}
+	    \end{itemize}
+	    No início da página deve haver um formulário para adicionar uma nova turma. Esse formulário deve ter os campos: \textit{letra}, \textit{professor}, \textit{vagas}, \textit{ID\_MATERIA} (identificador da matéria a se criar uma turma), uma matriz de horários como \textit{input} do tipo \textit{checkbox} e um botão de submissão. Ao clicar no botão as seguintes ações devem ocorrer:
+	    \begin{itemize}
+	      \item Verificar se a matéria pertence ao departamento do coordenador
+	      \item Adicionar a turma na tabela \textit{tbl\_turmas}
+	      \item Adicionar o horário da matriz na tabela \textit{tbl\_turmas\_horarios}
+	    \end{itemize}
+	  }{?}{Hélio e Ivan}{Médio}{Máxima}{\pendente}
+	\end{tarefas}
+\end{document}

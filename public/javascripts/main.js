@@ -3,10 +3,11 @@
  var q = {
   nothing: function(){},
   actions: function(object){
-    this.wait = this.done = this.fail = q.nothing;
+    this.wait = this.done = this.fail = this.serverError = q.nothing;
     if(typeof(object.wait) === "function") this.wait = object.wait;
     if(typeof(object.done) === "function") this.done = object.done;
     if(typeof(object.fail) === "function") this.fail = object.fail;
+    if(typeof(object.serverError) === "function") this.serverError = object.serverError;
   },
   toFormData: function(data){
     var form = new FormData();
@@ -26,7 +27,7 @@
 		    if(a.readyState == a.DONE) {
 				    if(a.status === 200 || a.status == 201) f.done(a.responseText)
 				    if(a.status >= 400 && a.status <= 410) f.fail(a.responseText)
-				    if(parseInt(a.status/100)%5 == 0) alert("Erro de servidor");
+				    if(parseInt(a.status/100)%5 == 0) f.serverError(a.responseText)
 				}
 				else f.wait();
 			}
@@ -42,7 +43,7 @@
 		    if(a.readyState == a.DONE) {
 				    if(a.status === 200) f.done(a.responseText)
 				    if(a.status >= 400 && a.status <= 410) f.fail(a.responseText)
-				    if(parseInt(a.status/100)%5 == 0) alert("Erro de servidor");
+				    if(parseInt(a.status/100)%5 == 0) f.serverError(a.responseText)
 				}
 				else f.wait();
 			}
