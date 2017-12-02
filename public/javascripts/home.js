@@ -38,6 +38,7 @@ var sinalizador = {
 function loadPage(destine,f){
   q.get(destine.href, new q.actions({
     done: function(d){
+      sinalizador.show("")
       document.body.style.cursor=""
       if(typeof(f) === "function") f();
       if(pageload) {
@@ -48,9 +49,17 @@ function loadPage(destine,f){
         else document.body.scrollTop = 0
       }
     },
-    wait: function(){document.body.style.cursor="progress"},
-    fail: function(){document.body.style.cursor=""},
+    wait: function(){
+      document.body.style.cursor="progress"
+      sinalizador.show("Carregando...")
+    },
+    fail: function(m){
+      sinalizador.show("")
+      document.body.style.cursor=""
+      fullBox.show("Falha", m, "windowtopError")
+    },
     serverError: function(m){
+      sinalizador.show("")
       document.body.style.cursor=""
       fullBox.show("Falha grave", "Erro no servidor, veja a falha completa <a target='_blank' href=\"data:text/html;charset=utf-8,"+encodeURIComponent(m)+"\">aqui</a>", "windowtopServerError")
     }
@@ -84,7 +93,7 @@ function eventAction(e,a,array,post){
         sinalizador.show("")
       },
       serverError: function(m){
-        fullBox.show("Falha grave", "Erro no servidor, veja a falha completa <a target='_bottom' href=\"data:octet-stream;base64,"+btoa(m)+"\">aqui</a>", "windowtopServerError")
+        fullBox.show("Falha grave", m, "windowtopServerError")
         sinalizador.show("")
       },
       wait: function(){

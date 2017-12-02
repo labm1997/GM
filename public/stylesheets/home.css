@@ -129,10 +129,12 @@ div.fullbox div.window{
   position: relative;
   margin-left: auto;
   margin-right: auto;
-  width: 300px;
+  min-width: 300px;
+  max-width: 900px;
   min-height: 100px;
   background: #fff;
   text-align: left;
+  display: inline-block;
 }
 
 div.fullbox div.window div.windowtop{
@@ -155,4 +157,9 @@ div.fullbox div.window div.windowtop div.windowlabel{
 
 div.fullbox div.window div.windowtext{
   padding: 6px;
+}
+
+div.fullbox div.window div.windowtext span{
+  min-width: 300px;
+  white-space: pre-wrap;
 }
