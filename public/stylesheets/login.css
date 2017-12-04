@@ -70,7 +70,7 @@ div.area_login div.inner_login {
 
 div.inner_login h1 {font-size: 50px;}
 
-form#loginform {width: 256px; display: inline-block;}
+form#loginform {width: 200px; display: inline-block;}
 
 div.area_login div.inner_login div.warnings {
   color: #fff;

@@ -239,10 +239,10 @@ class HomeController @Inject()(
           BadRequest("Formulário com erros")	
         },
 	      caracteristica => {
-	        val nome = caracteristicasdao.getMatricula(user)
+	        //val nome = caracteristicasdao.getMatricula(user)
 	        val novaCar = Caracteristicas(user, caracteristica.cpf, caracteristica.nomepai, caracteristica.nomemae, caracteristica.nacionalidade, caracteristica.rg, caracteristica.sexo, caracteristica.data_nascimento, caracteristica.nivel, caracteristica.pne, caracteristica.endereco, caracteristica.uf, caracteristica.cidade, caracteristica.cep, caracteristica.email, caracteristica.telefone, caracteristica.celular, caracteristica.racacor)
 	        caracteristicasdao.salvarCar(novaCar)
-	        Created(views.html.caracteristicas(caractForm))
+	        Ok("Tudo OCOrreu como deveria")
           //BadRequest("nao implementado")	
         }
       )
