@@ -2,7 +2,7 @@
 @(alunoForm: Form[AlunoVO], alunos: List[Aluno])(implicit messages: Messages)
 
 @main("Novo aluno") {
- @helper.form(action = routes.HomeController.novoAlunoSubmissao()) {
+ @helper.form(action = routes.novoAlunoController.novoAlunoSubmissao()) {
   <table>
     <tr>
       <td>Matrícula</td>
