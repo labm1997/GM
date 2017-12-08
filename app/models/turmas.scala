@@ -24,6 +24,10 @@ case class counter(n: Int)
 case class Matricula(ID_MATERIA: Int, ID_TURMA: Int, nome: String, letra: String, posicao: Int, prioridade: Int, vagas: Int)
 case class orderList(matricula: String, tipo: Int)
 
+case class trancamentoMateria(ID: Int, letra: String, nome: String ,ID_MATERIA: Int )
+case class trancamentoGeral(ID_TURMA: Int)
+  
+
 class turmasDAO @Inject() (database: Database) {
   val parserH : RowParser[HorarioData] = Macro.namedParser[HorarioData]
   val parser : RowParser[TurmaData] = Macro.namedParser[TurmaData]
@@ -33,10 +37,29 @@ class turmasDAO @Inject() (database: Database) {
   val parsercounter : RowParser[counter] = Macro.namedParser[counter]
   val parserorderList : RowParser[orderList] = Macro.namedParser[orderList]
   val parserPR : RowParser[PreRequisito] = Macro.namedParser[PreRequisito]
-  
+ 
+  val parserTrancamentoMateria : RowParser[trancamentoMateria] = Macro.namedParser[trancamentoMateria]
+  val parserTrancamentoGeral : RowParser[trancamentoGeral] = Macro.namedParser[trancamentoGeral]
+
   val diasDaSemana = new ListBuffer[String]
   diasDaSemana += ("Domingo","Segunda","Terça","Quarta","Quinta","Sexta","Sábado")
   
+
+
+
+  def getTrancamentoMateria(user: String) = database.withConnection { implicit connection => 
+    SQL("SELECT tbl_turmas.ID AS ID, tbl_turmas.ID_MATERIA AS ID_MATERIA, tbl_turmas.letra AS letra, tbl_materias.nome as nome FROM tbl_turmas_matricula LEFT JOIN tbl_materias ON tbl_materias.ID = tbl_turmas.ID_MATERIA LEFT JOIN tbl_turmas on tbl_turmas_matricula.ID_TURMA = tbl_turmas.ID WHERE tbl_turmas_matricula.Matricula = user = {user} WHERE status = 'matriculado'").on("user" -> user).as(parserTrancamentoMateria.*)    
+  }
+
+  def trancarTurma(user: String) = database.withConnection { implicit connection => 
+    SQL("UPDATE tbl_users, tbl_historico, tbl_turmas_matricula SET trancamento = 1, mençao = 6, status = 'trancado' WHERE tbl_turmas_matricula.MATRICULA = '"+user+"'")
+  }
+  
+   /* Obtém as turmas de uma matéria dado ID da matéria */
+  def getTrancamentoGeral(user: String) = database.withConnection { implicit connection => 
+    
+  }
+
   /* Obtém as turmas de uma matéria dado ID da matéria */
   def getTurmas(idmateria: Int): List[Turma] = database.withConnection { implicit connection => 
     var turmasList = getTurmasData(idmateria)
