@@ -26,7 +26,8 @@ POST   /dados/estudantes            controllers.novoAlunoController.novoAlunoSub
 POST   /dados/matricular            controllers.matriculasController.matricular
 GET    /dados/caracteristicas       controllers.caracteristicasController.nova_caracteristica
 POST   /dados/caracteristicasAluno  controllers.caracteristicasController.SubmeterCar
-GET    /dados/matricula             controllers.matriculasController.matricular
+GET    /dados/matricula             controllers.matriculasController.matricula
+GET    /dados/matricular            controllers.matriculasController.matricular
 GET    /dados/retirarMatricula      controllers.matriculasController.retirarMatricula(idturma: Int ?=0)
 POST   /dados/matriculaAtualizar    controllers.matriculasController.matriculaAtualizar
 

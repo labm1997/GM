@@ -15,6 +15,15 @@ import play.api.i18n.MessagesApi
 @Singleton
 class matriculasController @Inject()(turmasDAO : turmasDAO, materiasdao : materiasDAO, cc: ControllerComponents) extends AbstractController(cc) with I18nSupport {
 
+
+  def matricula() = Action { implicit request: Request[AnyContent] =>
+    request.session.get("connected").map { user => 
+      Ok(views.html.matricula(turmasDAO.getSolicitacoes(user)))
+    }.getOrElse {
+      Unauthorized("Iiiiish")
+    }
+  }
+
   def matricular = Action { implicit request =>
     request.session.get("connected").map { user => 
       matriculaForm.bindFromRequest.fold(
