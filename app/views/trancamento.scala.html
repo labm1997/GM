@@ -1,0 +1,39 @@
+@(materias: List[trancamentoMateria])
+<html lang="pt">
+<body>
+		<h2> Nome do aluno </h2>
+		<h4> Número da matrícula </h4>
+			<table>
+				<thead>
+					<tr>
+						<th>Código</th>
+						<th>Nome</th>
+						<th>Turma</th>
+						<th></th>
+					</tr>
+				</thead>
+				<tbody>
+					@helper.form(action = routes.trancamentoController.trancaMateria()) {
+						@for(materia <- materias){
+						<!-- uma matéria -->
+						<tr>
+							<td>@materia.ID</td>
+							<td>@materia.nome</td>
+							<td>@materia.letra</td>
+							<td>
+								<form action="dados/trancarMateria" method="POST">
+									<input value="@materia.ID" name="ID_TURMA" hidden/>
+									<input class = "listener" type="submit"  value="Trancar matéria">
+								</form>
+							</td> <!-- Botão que deve trancar a matéria -->
+						</tr>}
+						<!-- inserir mais para cada matéria -->
+					}
+				</tbody>
+			</table>
+				@helper.form(action = routes.trancamentoController.trancaGeral()) {
+					<form action="dados/trancarGeral" method="POST">
+					<input class = "botao" type="submit" value="Trancamento Geral"> <!-- Botão único que deve trancar todas as matérias -->
+				</form>
+				}
+</body>

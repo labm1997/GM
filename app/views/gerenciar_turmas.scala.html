@@ -1,0 +1,108 @@
+@(materias: List[coordenadorRetiraMateria])
+<html lang="pt">
+
+<head>
+
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+  	<title>GM - Gerenciador de turmas</title> <!-- insira o titulo da página aki-->
+
+  <!--CSS-->
+	<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+	<link href="https://fonts.googleapis.com/css?family=Libre+Baskerville" rel="stylesheet"> 
+
+	<link rel="stylesheet" type="text/css" href="../../public/stylesheets/main.css"> <!-- insere o nome da página de css aki-->
+
+	<!--jQuery-->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+
+
+	<!--JavaScript-->
+	<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+</head>
+
+<body>
+	<div class = "container-fluid">
+		<h2>Olá coordenador</h2>
+
+		<h3>Deseja inserir uma nova turma?</h3>
+
+		<form>
+			<p>ID da matéria</p>
+			<input name="ID_MATERIA" type="text"></input>
+
+			<p>Número de vagas</p>
+			<input name="vagas" type="text"></input>
+
+			<p>Nome do professor</p>
+			<input name="professor" type="text"></input>
+
+			<p>Letra da turma</p>
+			<input name="letra" type="text"></input>
+			<br>
+
+			<div class = "row">
+			<p>Escolha o dia</p>
+				<div class = "col-lg-3 col-md-3 col-sm-3 col-xs-3"><input type="checkbox" name="Dia" value="Segunda"><p>Segunda</p></div>
+				<div class = "col-lg-3 col-md-3 col-sm-3 col-xs-3"><input type="checkbox" name="Dia" value="Terca"><p>Terça</p></div>
+				<div class = "col-lg-3 col-md-3 col-sm-3 col-xs-3"><input type="checkbox" name="Dia" value="Quarta"><p>Quarta</p></div>
+				<div class = "col-lg-3 col-md-3 col-sm-3 col-xs-3"><input type="checkbox" name="Dia" value="Quinta"><p>Quinta</p></div>
+				<div class = "col-lg-3 col-md-3 col-sm-3 col-xs-3"><input type="checkbox" name="Dia" value="Sexta"><p>Sexta</p></div>
+				<div class = "col-lg-3 col-md-3 col-sm-3 col-xs-3"><input type="checkbox" name="Dia" value="Sabado"><p>Sábado</p></div>
+				<div class = "col-lg-3 col-md-3 col-sm-3 col-xs-3"><input type="checkbox" name="Dia" value="Domingo"><p>Domingo</p></div>
+				<div class = "col-lg-3 col-md-3 col-sm-3 col-xs-3"><p></p></div>
+				<br>
+			</div>
+
+			<div class = "row">
+				<p>Escolha o horário</p>
+				<div class = "col-lg-3 col-md-3 col-sm-3 col-xs-3"><input type="checkbox" name="Hora" value="8"><p>8-10</p></div>
+				<div class = "col-lg-3 col-md-3 col-sm-3 col-xs-3"><input type="checkbox" name="Hora" value="10"><p>10-12</p></div>
+				<div class = "col-lg-3 col-md-3 col-sm-3 col-xs-3"><input type="checkbox" name="Hora" value="12"><p>12-14</p></div>
+				<div class = "col-lg-3 col-md-3 col-sm-3 col-xs-3"><input type="checkbox" name="Hora" value="14"><p>14-16</p></div>
+				<div class = "col-lg-3 col-md-3 col-sm-3 col-xs-3"><input type="checkbox" name="Hora" value="16"><p>16-18</p></div>
+				<div class = "col-lg-3 col-md-3 col-sm-3 col-xs-3"><input type="checkbox" name="Hora" value="18"><p>18-20</p></div>
+				<div class = "col-lg-3 col-md-3 col-sm-3 col-xs-3"><input type="checkbox" name="Hora" value="20"><p>20-22</p></div>
+				<div class = "col-lg-3 col-md-3 col-sm-3 col-xs-3"><input type="checkbox" name="Hora" value="22"><p>22-24</p></div>
+				<br>
+			</div>
+			<input type="submit" value="Criar turma">
+			<br><br>
+
+
+			<h2>Lista de matérias do departamento</h2>
+			<div class = "table-responsive">
+			<table class="table table-bordered celula">
+				<thead>
+					<tr>
+						<th class = "col-lg-3 col-md-3 col-sm-3 col-xs-3">Código</th>
+						<th class = "col-lg-3 col-md-3 col-sm-3 col-xs-3">Nome</th>
+						<th class = "col-lg-3 col-md-3 col-sm-3 col-xs-3">Turma</th>
+						<th class = "col-lg-3 col-md-3 col-sm-3 col-xs-3"></th>
+					</tr>
+				</thead>
+				<tbody>
+					@helper.form(action = routes.HomeController.coordenadorRetiraMateria()) {
+						@for(materia <- materias){
+						<!-- uma matéria -->
+						<tr>
+							<td class = "col-lg-3 col-md-3 col-sm-3 col-xs-3">@materia.ID</td>
+							<td class = "col-lg-3 col-md-3 col-sm-3 col-xs-3">@materia.nome</td>
+							<td class = "col-lg-3 col-md-3 col-sm-3 col-xs-3">@materia.letra</td>
+							<td class = "col-lg-3 col-md-3 col-sm-3 col-xs-3">
+								<form action="dados/coordenadorRetiraMateria" method="POST">
+									<input value="@materia.ID_MATERIA" name="ID_MATERIA" hidden/>
+									<input class = "listener" type="submit"  value="Retirar matéria">
+								</form>
+							</td> <!-- Botão que deve trancar a matéria -->
+						</tr>
+						<!-- inserir mais para cada matéria -->
+						}
+					}
+				</tbody>
+			</table>
+		</div>
+	</div>
+	
+</body>
