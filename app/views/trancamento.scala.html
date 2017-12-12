@@ -1,0 +1,50 @@
+@(materias: List[trancamentoMateria])
+<html lang="pt">
+<body>
+	<div class = "container-fluid">
+		<h2> Nome do aluno </h2>
+		<h4> Número da matrícula </h4>
+
+		<div class = "table-responsive">
+			<table class="table table-bordered celula">
+				<thead>
+					<tr>
+						<th class = "col-lg-3 col-md-3 col-sm-3 col-xs-3">Código</th>
+						<th class = "col-lg-3 col-md-3 col-sm-3 col-xs-3">Nome</th>
+						<th class = "col-lg-3 col-md-3 col-sm-3 col-xs-3">Turma</th>
+						<th class = "col-lg-3 col-md-3 col-sm-3 col-xs-3"></th>
+					</tr>
+				</thead>
+				<tbody>
+					@helper.form(action = routes.HomeController.trancamento()) {
+						@for(materia <- materias){
+						<!-- uma matéria -->
+						<tr>
+							<td class = "col-lg-3 col-md-3 col-sm-3 col-xs-3">@materia.ID</td>
+							<td class = "col-lg-3 col-md-3 col-sm-3 col-xs-3">@materia.nome</td>
+							<td class = "col-lg-3 col-md-3 col-sm-3 col-xs-3">@materia.letra</td>
+							<td class = "col-lg-3 col-md-3 col-sm-3 col-xs-3">
+								<form action="dados/trancarMateria" method="POST">
+									<input value="@materia.ID_MATERIA" name="ID_MATERIA" hidden/>
+									<input class = "listener" type="submit"  value="Trancar matéria">
+								</form>
+							</td> <!-- Botão que deve trancar a matéria -->
+						</tr>}
+						<!-- inserir mais para cada matéria -->
+					}
+				</tbody>
+			</table>
+		</div>
+		<div class = "row">
+			<div class = "col-lg-5 col-md-5 col-sm-4 col-xs-4"></div>
+			<div class = "col-lg-2 col-md-2 col-sm-4 col-xs-4">
+				@helper.form(action = routes.HomeController.trancamento()) {
+					<form action="dados/trancarGeral" method="POST">
+					<input class = "botao" type="submit" value="Trancamento Geral"> <!-- Botão único que deve trancar todas as matérias -->
+				</form>
+				}
+			</div>
+			<div class = "col-lg-5 col-md-5 col-sm-4 col-xs-4"></div>
+		</div>
+	</div>
+</body>

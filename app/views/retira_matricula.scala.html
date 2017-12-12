@@ -1,0 +1,38 @@
+@(materias: List[retiraMatricula])
+<html lang="pt">
+<body>
+	<div class = "container-fluid">
+		<h2> Nome do aluno </h2>
+		<h4> Número da matrícula </h4>
+
+		<div class = "table-responsive">
+			<table class="table table-bordered celula">
+				<thead>
+					<tr>
+						<th class = "col-lg-3 col-md-3 col-sm-3 col-xs-3">Código</th>
+						<th class = "col-lg-3 col-md-3 col-sm-3 col-xs-3">Nome</th>
+						<th class = "col-lg-3 col-md-3 col-sm-3 col-xs-3">Turma</th>
+						<th class = "col-lg-3 col-md-3 col-sm-3 col-xs-3"></th>
+					</tr>
+				</thead>
+				<tbody>
+					<!-- uma matéria -->
+					@helper.form(action = routes.HomeController.retirarMateria()) {
+						@for (materia <- materias){
+							<tr>
+								<td class = "col-lg-3 col-md-3 col-sm-3 col-xs-3">Código da matéria</td>
+								<td class = "col-lg-3 col-md-3 col-sm-3 col-xs-3">Nome da matéria</td>
+								<td class = "col-lg-3 col-md-3 col-sm-3 col-xs-3">Turma</td>
+								<form action="dados/retiraMateria" method="POST">
+									<input value="@materia.ID_MATERIA" name="ID_MATERIA" hidden/>
+									<input class = "listener" type="submit" value="Retirar matéria"><!-- Botão único que deve retirar a matéria do aluno -->
+								</form>
+							</tr>
+							<!-- inserir mais para cada matéria -->
+						}
+					}
+				</tbody>
+			</table>
+		</div>
+	</div>
+</body>
