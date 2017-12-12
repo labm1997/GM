@@ -24,6 +24,10 @@ case class counter(n: Int)
 case class Matricula(ID_MATERIA: Int, ID_TURMA: Int, nome: String, letra: String, posicao: Int, prioridade: Int, vagas: Int)
 case class orderList(matricula: String, tipo: Int)
 
+case class trancamentoMateria(ID: Int, letra: String, nome: String ,ID_MATERIA: Int, prof: String)
+case class retiraMateria(ID: int, nome: String, ID_MATERIA: Int)
+case class coordenadorRetiraMateria(ID: Int, letra: String, nome: String ,ID_MATERIA: Int, prof: String)
+
 class turmasDAO @Inject() (database: Database) {
   val parserH : RowParser[HorarioData] = Macro.namedParser[HorarioData]
   val parser : RowParser[TurmaData] = Macro.namedParser[TurmaData]
@@ -33,9 +37,50 @@ class turmasDAO @Inject() (database: Database) {
   val parsercounter : RowParser[counter] = Macro.namedParser[counter]
   val parserorderList : RowParser[orderList] = Macro.namedParser[orderList]
   val parserPR : RowParser[PreRequisito] = Macro.namedParser[PreRequisito]
+
+  val parserTrancamentoMateria : RowParser[trancamentoMateria] = Macro.namedParser[trancamentoMateria]
+  val parserRetiraMatricula : RowParser[retiraMatricula] = Macro.namedParser[retiraMatricula]
+  val parserCoordenadorRetiraMateria : RowParser[retiraMateria] = Macro.namedParser[retiraMateria]
+
   
   val diasDaSemana = new ListBuffer[String]
   diasDaSemana += ("Domingo","Segunda","Terça","Quarta","Quinta","Sexta","Sábado")
+
+  def getCoordenadorRetiraMateria(user: String) = database.withConnection { implicit connection =>
+    SQL("SELECT tbl_turmas.ID AS ID, tbl_turmas.ID_MATERIA AS ID_MATERIA, tbl_turmas.letra AS letra, tbl_materias.nome AS nome, tbl_turmas.professor AS prof FROM tbl_turmas_matricula LEFT JOIN tbl_materias ON tbl_materias.ID = tbl_turmas.ID_MATERIA LEFT JOIN tbl_turmas on tbl_turmas_matricula.ID_TURMA = tbl_turmas.ID WHERE tbl_turmas_matricula.Matricula = user = {user}").on("user" -> user).as(parserCoordenadorRetiraMateria.*)
+  }
+
+  def coordenadorRetiraMateria(ID: Int) = database.withConnection { implicit connection =>
+    SQL("DELETE FROM tbl_turmas_horarios WHERE ID_TURMA={idturma}").on("idturma" -> ID).executeInsert()
+    SQL("DELETE FROM tbl_turmas_matricula WHERE ID_TURMA={idturma}").on("idturma" -> ID).executeInsert()
+    SQL("DELETE FROM tbl_turmas WHERE ID = {id} ").on("id" -> ID).executeInsert()
+  }
+
+  def getRetirarMatricula(user: String) = database.withConnection { implicit connection =>
+    SQL("SELECT tbl_turmas.ID AS ID, tbl_turmas.ID_MATERIA AS ID_MATERIA, tbl_materias.nome AS nome FROM tbl_turmas_matricula LEFT JOIN tbl_materias ON tbl_materias.ID = tbl_turmas.ID_MATERIA LEFT JOIN tbl_turmas on tbl_turmas_matricula.ID_TURMA = tbl_turmas.ID WHERE tbl_turmas_matricula.MATRICULA = {user} WHERE status = 'matriculado'").on("user" -> user).as(parserRetiraMatricula.*)
+  }
+
+  def retiraMatricula(user: String, ID_TURMA: Int) = database.withConnection { implicit connection => 
+    SQL("UPDATE tbl_turmas_matricula SET status = 'retirado' WHERE tbl_turmas_matricula.MATRICULA = {user} AND tbl_turmas_matricula.ID_TURMA = {idturma} ").on("user" -> user, "idturma" -> ID_TURMA).executeInsert()
+  }
+
+  def getTrancamentoMateria(user: String) = database.withConnection { implicit connection => 
+    SQL("SELECT tbl_turmas.ID AS ID, tbl_turmas.ID_MATERIA AS ID_MATERIA, tbl_turmas.letra AS letra, tbl_materias.nome AS nome, tbl_turmas.professor AS prof FROM tbl_turmas_matricula LEFT JOIN tbl_materias ON tbl_materias.ID = tbl_turmas.ID_MATERIA LEFT JOIN tbl_turmas on tbl_turmas_matricula.ID_TURMA = tbl_turmas.ID WHERE tbl_turmas_matricula.MATRICULA = {user} WHERE status = 'matriculado'").on("user" -> user).as(parserTrancamentoMateria.*)
+  }
+
+  def trancarTurma(ID_TURMA: Int, user: String) = database.withConnection { implicit connection => 
+    val materia = getTrancamentoMateria(user).filter(a => a.ID == ID_TURMA)
+    if(materia.length == 1){
+      SQL("INSERT INTO tbl_historico (matricula,ID_MATERIA,professor,mençao) VALUES ({user},{idmateria},{professor},6)").on("user" -> user, "idmateria" -> materia(0).ID_MATERIA, "professor" -> materia(0).prof).executeInsert()
+      SQL("UPDATE turmas_matricula SET status = 'trancado' WHERE tbl_turmas_matricula.MATRICULA = {user}").on("user" -> user).executeInsert()
+    }
+    else None
+  }
+
+  def trancarGeral(user: String) = database.withConnection { implicit connection => 
+    getTrancamentoMateria(user).foreach(m => trancarTurma(m.ID, user))
+    SQL("UPDATE tbl_users SET trancamento = 1 WHERE tbl_users.MATRICULA = {user}").on("user" -> user).executeInsert()
+  }
   
   /* Obtém as turmas de uma matéria dado ID da matéria */
   def getTurmas(idmateria: Int): List[Turma] = database.withConnection { implicit connection => 
